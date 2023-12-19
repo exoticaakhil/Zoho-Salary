@@ -1,0 +1,404 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% load tz %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+<!-- <link rel="stylesheet" href="{% static 'assets/css/style.css' %}"> -->
+
+<style>
+  .modal {
+    z-index: 9999;
+    overflow: scroll;
+  }
+
+  input[type=text],
+  select,
+  textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+  }
+
+  label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+  }
+
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  @media screen and (max-width: 600px) {
+
+    .col-25,
+    .col-75,
+    input[type=submit] {
+      width: 100%;
+      margin-top: 0;
+    }
+
+    input[type=text],
+    select,
+    textarea {
+      width: 100%;
+    }
+  }
+
+  .dropdown input,
+  .dropdown button {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+
+  .dropdown.open input,
+  .dropdown.open button {
+    display: block;
+  }
+
+  .row a {
+    color: rgb(218, 164, 48);
+    font-size: 12px;
+  }
+
+  .table th a {
+    color: rgb(218, 164, 48);
+    font-size: 11px;
+    margin-left: 100px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  #item_table {
+    background-color: rgba(58, 57, 57, 0.8);
+  }
+
+
+  .itm option {
+    color: black;
+  }
+
+  #customer_sel option {
+    color: black;
+  }
+
+  #termadd {
+    background-color: chocolate;
+    color: black;
+    margin-left: 2vh;
+    font-size: large;
+    padding-top: 1vh;
+  }
+
+  #pay_term option {
+    color: black;
+  }
+</style>
+
+
+<div class="container-fulid containerprof">
+  <div class="card " style="width: 100%;">
+    <div class="card-body">
+      <div class="card-title">
+        <h2 class="mb-0 text-uppercase text-right"> Add salary Details</h2>
+        {% for message in messages %}
+        <div class="alert alert-success">
+          <a class="close" href="#" data-dismiss="alert">x</a>
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div>
+
+    <div class="card  p-5">
+      <form action="{% url 'add_salary_details' %}" class="mt-2 mb-4" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-3">
+            <label>Employee Name *</label>
+          </div>
+          <div class="col-md-6 d-flex">
+
+
+            <select name="ex_name" id="customer_sel" class="form-control bg-light text-dark" style="width: 91%;"
+            required onchange="getEmail()">
+            <option value="" hidden selected>Select Employee</option>
+            {% for cust in c %}
+              <option value="{{cust.id}}" data-email="{{cust.email}}" data-emp-number="{{cust.emp_number}}" data-emp-desigination="{{cust.designation}}" id="crt_cust">{{cust.first_name}} {{cust.last_name}}</option>
+            {% endfor %}
+          </select>
+          
+ 
+            <a data-toggle="modal" data-target="#newcustomer" class="btn"
+              style="background-color: chocolate; color: black; height: 80%; margin-left: 2vh; font-size: large; padding-top: 1vh;">+</a>
+          </div>
+        </div>
+        
+
+        <div class="row mt-2">
+          <div class="col-md-3">
+            <label for="">Employee Mail</label>
+          </div>
+
+          <div class="col-md-6">
+            <input type="email" class="form-control bg-light text-dark" id="emailTextbox" name="ex_mail" readonly>
+          </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-3">
+                <label for="">Employee id</label>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control bg-light text-dark" id="employeeNumberTextbox" name="cx_treat" readonly>
+              </div>
+          </div>
+        <div class="row mt-2">
+            <div class="col-md-3">
+                <label for="">Desigination</label>
+              </div>
+    
+              <div class="col-md-6">
+                <input type="text" class="form-control bg-light text-dark" id="employeedesiginationTextbox" name="cx_treat" readonly>
+              </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-3">
+                <label for="">Joining Date</label>
+              </div>
+    
+              <div class="col-md-6">
+                <input type="date" class="form-control bg-light text-dark" id="cx_treat" name="cx_treat" readonly>
+              </div>
+          </div>
+        <div class="row mt-2">
+          <div class="col-md-3">
+            <label for="date1">Salary Date</label>
+          </div>
+
+          <div class="col-md-6">
+            <input type="date" class="form-control bg-light text-dark" id="currentDateTextbox" name="sa_date">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-3">
+            <label for="date2">Year</label>
+          </div>
+
+          <div class="col-md-6">
+            <input type="number" class="form-control bg-light text-dark" id="yearTextBox" name="sh_date"  required>
+          </div>
+        </div>
+  
+        <div class="row mt-5 mb-3">
+          <input style="width: 150px;margin-right: 1vh; background-color: chocolate;" type="submit" class="btn mt-2"
+            value="Draft" name="Draft">
+          <input style="width: 150px;margin-right: 1vh; background-color: chocolate;" type="submit" class="btn mt-2"
+            value="Save" name="Save">
+          <input style="width: 150px; background-color: chocolate;" class="btn mt-2" type="reset" value="Cancel">
+        </div>
+      </form>
+
+      <!-- customer modal -->
+      <div class="modal fade" id="newcustomer">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content" style="background: rgb(32, 35, 37);border-radius: 20px;">
+            <div class="modal-header " style="background: rgb(32, 35, 37);">
+              <h3 class="m-3 text-uppercase">New Customer</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" style="background: rgb(32, 35, 37);">
+              <div class="card p-3 m-3">
+                <form action="" method="post" class="needs-validation" novalidate autocomplete="off" id="modalCustomer">
+                  <div class="row mt-2">
+                    <div class="col-md-3 mt-2">
+                      <label for="">Customer Type</label><br>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                      <div class="d-flex">
+                        <div class="radio_opt mx-5 mt-2">
+                          <input type="radio" id="business" name="radioCust" value="Business">
+                          <label for="option1">Business</label>
+                        </div>
+                        <div class="radio_opt mx-4 mt-2">
+                          <input type="radio" id="individual" name="radioCust" value="Individual">
+                          <label for="option2">Individual</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-5">
+                    <div class="col-md-3">
+                      <label for="ctitle">Title</label>
+                    </div>
+                    <div class="col-md-3">
+                      <select name="ctitle" id="ctitle" class="form-control bg-light text-dark">
+                        <option value="Mr." selected>Mr.</option>
+                        <option value="Mrs.">Mrs.</option>
+                        <option value="Ms.">Ms.</option>
+                        <option value="Miss.">Miss.</option>
+                        <option value="Dr.">Dr.</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-md-3 mt-2">
+                      <label for="cfname">First name</label>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                      <input type="text" class="form-control bg-light text-dark" id="cfname" name="cfirstname" required>
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-md-3 mt-2">
+                      <label for="clname">Last name</label>
+                      <label id="cdisplayname" name="cdisplayname" hidden></label>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                      <input type="text" class="form-control bg-light text-dark" id="clname" name="clastname">
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-md-3 mt-2">
+                      <label for="ccompany">Company Name</label>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                      <input type="text" class="form-control bg-light text-dark" id="ccompany" name="ccompany_name">
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-md-3 mt-2">
+                      <label for="cemail">Customer Email</label>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                      <input type="email" class="form-control bg-light text-dark" id="cemail" name="cemail"
+                        placeholder="example@gmail.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-md-3 mt-2">
+                      <label for="email">Customer Phone</label>
+                    </div>
+                    <div class="col-md-3 mt-2">
+                      <input type="text" class="form-control bg-light text-dark" id="cw_mobile"
+                        placeholder="Work Number" maxlength="10" name="cw_mobile">
+                    </div>
+                    <div class="col-md-3 mt-2">
+                      <input type="text" class="form-control bg-light text-dark" id="cp_mobile"
+                        placeholder="Personal Number" maxlength="10" name="cp_mobile">
+                    </div>
+                  </div>
+                  
+
+
+
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+<script>
+    // Function to get the email of the selected employee
+    function getEmail() {
+      // Get the <select> element
+      var selectElement = document.getElementById("customer_sel");
+  
+      // Get the selected option
+      var selectedOption = selectElement.options[selectElement.selectedIndex];
+  
+      // Get the data-email attribute value
+      var email = selectedOption.getAttribute("data-email");
+      var employeeNumber = selectedOption.getAttribute("data-emp-number");
+      var employeedesigination = selectedOption.getAttribute("data-emp-desigination");
+      // You can also update another element or perform any other actions with the email
+      // For example, update a textbox with the email
+      document.getElementById("emailTextbox").value = email;
+      
+
+      // Update the employee number textbox
+      document.getElementById("employeeNumberTextbox").value = employeeNumber;
+      document.getElementById("employeedesiginationTextbox").value = employeedesigination;
+    }
+  </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Function to format the date as YYYY-MM-DD
+      function formatDate(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+      }
+  
+      // Get the current date
+      const currentDate = new Date();
+  
+      // Set the formatted current date in the text box
+      document.getElementById("currentDateTextbox").value = formatDate(currentDate);
+    });
+  </script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get the current year
+      var currentYear = new Date().getFullYear();
+    
+      // Set the value of the text box to the current year
+      document.getElementById('yearTextBox').value = currentYear;
+    });
+    </script>
+<script>
+
+        $(document).ready(function () {
+
+          for (var i = 1; i <= rowCount; i++) {
+            // Generate table row
+            // ...
+
+            // Call toggleDateInput function for each row
+            toggleDateInput(i);
+          }
+        });
+
+</script>
+
+
+
+{% endblock %}

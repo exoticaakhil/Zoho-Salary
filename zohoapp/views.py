@@ -1788,18 +1788,7 @@ def allestimates(request):
     }
    
     return render(request, 'all_estimates.html', context)
-def allsalary(request):
-    user = request.user
-    estimates = Estimates.objects.filter(user=user).order_by('-id')
-    
-    
-    company = company_details.objects.get(user=user)
-    context = {
-        'estimates': estimates,
-        'company': company,
-    }
-   
-    return render(request, 'all_salary.html', context)
+
 
 
 def newestimate(request):
@@ -19591,17 +19580,7 @@ def est_sort_by_name(request):
             }  
     return render(request,'all_estimates.html',context)
 
-def sal_sort_by_name(request):
-    user=request.user.id
-    est=Estimates.objects.filter(user=user).values()
-    for r in est:
-        vn = r['customer_name'].split()[1:]
-        r['cust_name'] = " ".join(vn)
-    sorted_est = sorted(est, key=lambda r: r['cust_name'])  
-    context = {
-                'estimates' : sorted_est
-            }  
-    return render(request,'all_salary.html',context)
+
 
 def est_sort_by_name_estimate_view(request,pk):
     user=request.user.id
@@ -26990,3 +26969,49 @@ def exp_get_employeedet(request):
     # gstin = cust.gst_number
     # gsttr = cust.gst_treatment
     return JsonResponse({'email':email},safe=False)
+######salary#######
+def allsalary(request):
+    user = request.user
+    estimates = Payroll.objects.filter(user=user).order_by('-id')
+    
+    
+    company = company_details.objects.get(user=user)
+    context = {
+        'estimates': estimates,
+        'company': company,
+    }
+   
+    return render(request, 'all_salary.html', context)
+
+def sal_sort_by_name(request):
+    user=request.user.id
+    est=Payroll.objects.filter(user=user).values()
+    for r in est:
+        vn = r['first_name'].split()[1:]
+        r['cust_name'] = " ".join(vn)
+    sorted_est = sorted(est, key=lambda r: r['cust_name'])  
+    context = {
+                'estimates' : sorted_est
+            }  
+    return render(request,'all_salary.html',context)
+
+@login_required(login_url='login')
+def create_salary(request):
+    user = request.user
+    company = company_details.objects.get(user=user)
+    cust=Payroll.objects.filter(user=user)
+    context={
+        "c":cust,
+        "company":company,
+    }
+    return render(request,'create_salary.html',context)
+@login_required(login_url='login')
+def add_salary_details(request):
+    if request.user.is_authenticated:
+        if request.method=='POST':
+            c=request.POST['ex_name']
+            cus=Payroll.objects.get(id=c)   
+            custo=cus.id
+            
+
+            return redirect('view_sales_order')     

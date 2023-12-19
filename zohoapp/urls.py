@@ -1201,14 +1201,18 @@ urlpatterns = [
     path('create_edit_chart_of_account/<int:pk>',views.create_edit_chart_of_account,name='create_edit_chart_of_account'),
     path("view_journal/<int:jid>",views.view_journal,name="view_journal"),
 
-    ##salary##
-    path('allsalary',views.allsalary,name='allsalary'),
-    path('sal_sort_by_name',views.sal_sort_by_name,name='sal_sort_by_name'),
-    
+
     path('exp_get_vendordet',views.exp_get_vendordet,name='exp_get_vendordet'),
     path('exp_get_employeedet', views.exp_get_employeedet, name='exp_get_employeedet'),
     path('add_vendort/',views.add_vendort,name='add_vendort'),
+    ##salary##
+    path('allsalary',views.allsalary,name='allsalary'),
+    path('sal_sort_by_name',views.sal_sort_by_name,name='sal_sort_by_name'),
+    path('create_salary',views.create_salary,name='create_salary'),
+    path('add_salary_details',views.add_salary_details,name='add_salary_details'),
 
+   
+    
     
        
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
