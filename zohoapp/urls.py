@@ -1210,6 +1210,10 @@ urlpatterns = [
     path('sal_sort_by_name',views.sal_sort_by_name,name='sal_sort_by_name'),
     path('create_salary',views.create_salary,name='create_salary'),
     path('add_salary_details',views.add_salary_details,name='add_salary_details'),
+    path('salary_deatils/<int:id>',views.salary_deatils,name='salary_deatils'),
+    path('createpayrollonsalary',views.createpayrollonsalary,name='createpayrollonsalary'),
+    path('monthselection',views.monthselection,name='monthselection'),
+
 
    
     

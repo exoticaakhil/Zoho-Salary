@@ -27015,3 +27015,112 @@ def add_salary_details(request):
             
 
             return redirect('view_sales_order')     
+@login_required(login_url='login')
+def salary_deatils(request,id):
+    sales=Payroll.objects.get(id=id)
+    # saleitem=sales_item.objects.filter(sale_id=id)
+    # sale_order=SalesOrder.objects.filter(user=request.user.id)
+    company=company_details.objects.get(user_id=request.user.id)
+
+    # bank=''
+    # if sales.pay_method != 'cash':
+    #     if sales.pay_method != 'upi':      'saleitem':saleitem,'sale_order':sale_order,,'bank':bank
+    #         if sales.pay_method != 'cheque':
+    #             bank = Bankcreation.objects.get(name=sales.pay_method)
+    
+    context={'sale':sales,'company':company}
+    
+    return render(request,'salary_deatils.html',context)
+def createpayrollonsalary(request):
+    if request.method=='POST':
+        usr=request.user
+        title=request.POST['title']
+        fname=request.POST['fname']
+        lname=request.POST['lname']
+
+        emp = Payroll.objects.filter(first_name=fname,last_name=lname)
+        if emp:
+            messages.info(request,'Employee Already Exist')
+            return redirect('payroll_create')
+
+        alias=request.POST['alias']
+        joindate=request.POST['joindate']
+        salarydate=request.POST['salary']
+        saltype=request.POST['saltype']
+        if (saltype == 'Fixed'):
+            salary=request.POST['fsalary']
+        else:
+            salary=request.POST['vsalary']
+        image=request.FILES.get('file')
+        if image == None:
+            image="image/img.png"
+        amountperhr=request.POST['amnthr']
+        workhr=request.POST['hours']
+        empnum=request.POST['empnum']
+        designation = request.POST['designation']
+        location=request.POST['location']
+        gender=request.POST['gender']
+        dob=request.POST['dob']
+        blood=request.POST['blood']
+        fmname=request.POST['fm_name']
+        sname=request.POST['s_name']        
+        add1=request.POST['address']
+        add2=request.POST['address2']
+        address=add1+" "+add2
+        padd1=request.POST['paddress'] 
+        padd2=request.POST['paddress2'] 
+        paddress= padd1+padd2
+        phone=request.POST['phone']
+        ephone=request.POST['ephone']
+        email=request.POST['email']
+        isdts=request.POST['tds']
+        if isdts == '1':
+            istdsval=request.POST['pora']
+            if istdsval == 'Percentage':
+                tds=request.POST['pcnt']
+            elif istdsval == 'Amount':
+                tds=request.POST['amnt']
+        else:
+            istdsval='No'
+            tds = 0
+        itn=request.POST['itn']
+        an=request.POST['an']        
+        uan=request.POST['uan'] 
+        pfn=request.POST['pfn']
+        pran=request.POST['pran']
+        age=request.POST['age']
+        payroll= Payroll(user=usr, title=title,first_name=fname,last_name=lname,alias=alias,image=image,joindate=joindate,salary_type=saltype,salary=salary,age=age,
+                         emp_number=empnum,designation=designation,location=location, gender=gender,dob=dob,blood=blood,parent=fmname,spouse_name=sname,workhr=workhr,
+                         amountperhr = amountperhr, address=address,permanent_address=paddress ,Phone=phone,emergency_phone=ephone, email=email,ITN=itn,Aadhar=an,
+                         UAN=uan,PFN=pfn,PRAN=pran,isTDS=istdsval,TDS=tds,salaryrange = salarydate)
+        payroll.save()
+
+        bank=request.POST['bank']
+        if(bank == '1'):
+            accno=request.POST['acc_no']       
+            ifsc=request.POST['ifsc']       
+            bname=request.POST['b_name']       
+            branch=request.POST['branch']
+            ttype=request.POST['ttype']
+            b=Bankdetails(payroll=payroll,acc_no=accno,IFSC=ifsc,bank_name=bname,branch=branch,transaction_type=ttype)
+            b.save()
+        attach=request.FILES.get('attach')       
+        if(attach):
+            Payrollfiles.objects.create(attachment=attach,payroll=payroll)
+        return redirect('payroll_list')
+    else:
+        return redirect('createpayrollonsalary')
+def monthselection(request):
+    if request.method=='GET':
+        usr=request.user
+        company=company_details.objects.get(user_id=usr)
+        print(company)
+        Holiday=Events.objects.filter(company=company)
+        for h in Holiday:
+            h.start_date
+            h.end_date
+            print(h)
+        print(Holiday)
+        r=request.GET.get('month')
+        print(r)
+        return JsonResponse({"message":" success"})

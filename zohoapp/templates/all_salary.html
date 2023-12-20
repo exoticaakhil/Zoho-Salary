@@ -129,7 +129,6 @@
             <th>Employee ID</th>
             <th>Amount</th>
             <th>STATUS</th>
-            <th>ACTION</th>
             
 
 
@@ -138,59 +137,18 @@
         <tbody id="table">
           {% for estimate in estimates %}
           <tr id="tr_data" class="clickable-row">
-            <td><a href="{% url 'estimateslip' estimate.id %}" style="color: white;">{{estimate.id}}</a></td>
+            <td><a href="{% url 'salary_deatils' estimate.id  %}" style="color: white;">{{estimate.id}}</a></td>
 
-            <td ><a href="{% url 'estimateslip' estimate.id %}" style="color: white;">{{estimate.estimate_no}}</a></td>
+            <td ><a href="{% url 'salary_deatils' estimate.id %}" style="color: white;">{{estimate.estimate_no}}</a></td>
 
-            <td><a href="{% url 'estimateslip' estimate.id %}" style="color: white;">{{estimate.customer_name}}</a></td>
-            <td><a href="{% url 'estimateslip' estimate.id %}" style="color: white;">{{estimate.customer_mailid}}</a></td>
-            <td><a href="{% url 'estimateslip' estimate.id %}" style="color: white;">{{estimate.total}}</a></td>
+            <td><a href="{% url 'salary_deatils' estimate.id  %}" style="color: white;">{{estimate.customer_name}}</a></td>
+            <td><a href="{% url 'salary_deatils' estimate.id %}" style="color: white;">{{estimate.customer_mailid}}</a></td>
+            <td><a href="{% url 'salary_deatils' estimate.id %}" style="color: white;">{{estimate.total}}</a></td>
             
-            <td><a href="{% url 'estimateslip' estimate.id %}" style="color: white;">{{estimate.status}}</a></td>
-            <td><a href="{% url 'estimateslip' estimate.id %}" style="color: white;">{{estimate.balance}}</a></td>
+            <td><a href="{% url 'salary_deatils' estimate.id %}" style="color: white;">{{estimate.status}}</a></td>
+            <td><a href="{% url 'salary_deatils' estimate.id %}" style="color: white;">{{estimate.balance}}</a></td>
             <td>
-              <div class="dropdown " >
-                <a class="dropdown-toggle btn btn-outline-warning text-warning pt-2 pb-2"  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
-                  <i class="fa fa-exchange" aria-hidden="true">Convert</i>
-                </a>
-                <div class="dropdown-menu m-1">
-                  
-
-                  {% if estimate.convert_sales == 'converted' %}
-                  <a class="dropdown-item" href="">To Invoice </a>
-                  <a class="dropdown-item" href="">To SalesOrder (Done) <br> <span class="text-warning">{{ estimate.salesorder.sales_no}}</span> </a>
-                  <a class="dropdown-item" href="">To Rec.Invoice</a>
-                  {% elif estimate.convert_invoice == 'converted' %}
-                  <a class="dropdown-item" href="">To Invoice ( Done )<br><span class="text-warning">{{ estimate.invoice.invoice_no}}</span></a>
-                  <a class="dropdown-item" href="" >To SalesOrder</a>
-                  <a class="dropdown-item" href="">To Rec.Invoice</a>
-                  {% elif estimate.convert_recinvoice == 'converted' %}
-                  <a class="dropdown-item" href="">To Invoice </a>
-                  <a class="dropdown-item" href="">To SalesOrder</a>
-                  <a class="dropdown-item" href="">To Rec.Invoice (Done)<br><span class="text-warning">{{ estimate.reccinvoice.reinvoiceno}}</span> </a>
-                  {% else %}
-                  <a class="dropdown-item" href="{% url 'converttoinvoice' estimate.id %}">To Invoice </a>
-                  <a class="dropdown-item" href="{% url 'convert_to_salesorder' estimate.id %}">To SalesOrder</a>
-                  <a class="dropdown-item" href="{% url 'convert_to_reccinvoice' estimate.id %}">To Rec.Invoice</a>
-                  {% endif %}
-
-                  
-                </div>
-              </div>
             </td>
-<!--             
-              {% if estimate.convert_sales == 'converted' %}
-              <td style="color: rgb(3, 82, 3);">Done</td>
-              {% else %}
-              <td style="color: rgb(158, 2, 2);">Not Done</td>
-              {% endif %}
-
-              {% if estimate.convert_invoice == 'converted' %}
-              <td style="color: rgb(3, 82, 3);">Done</td>
-              {% else %}
-              <td style="color: rgb(158, 2, 2);">Not Done</td>
-              {% endif %}
-             -->
 
           </tr>
           {% endfor %}
