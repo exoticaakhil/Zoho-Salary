@@ -27110,17 +27110,43 @@ def createpayrollonsalary(request):
         return redirect('payroll_list')
     else:
         return redirect('createpayrollonsalary')
+
+
 def monthselection(request):
-    if request.method=='GET':
-        usr=request.user
-        company=company_details.objects.get(user_id=usr)
+    if request.method == 'GET':
+        usr = request.user
+        r = request.GET.get('month')
+        r = r.strip()  # Remove leading and trailing spaces
+        print(f"Selected month string: {r}")
+        company = company_details.objects.get(user_id=usr)
         print(company)
-        Holiday=Events.objects.filter(company=company)
+        Holiday = Events.objects.filter(company=company)
+
+        try:
+            selected_month_start = datetime.strptime(r, "%B").replace(day=1)
+            selected_month_end = (selected_month_start.replace(month=selected_month_start.month % 12 + 1, day=1) - timedelta(days=1))
+        except ValueError as e:
+            print(f"Error parsing selected month: {e}")
+            return JsonResponse({"message": "error"})
+
+        holidays_in_selected_month = 0
+
         for h in Holiday:
-            h.start_date
-            h.end_date
-            print(h)
+            start_date_str = h.start_date.strftime("%d-%m-%Y")
+            end_date_str = h.end_date.strftime("%d-%m-%Y")
+            
+            start_date_object = datetime.strptime(start_date_str, "%d-%m-%Y")
+            end_date_object = datetime.strptime(end_date_str, "%d-%m-%Y")
+            
+            if selected_month_start <= start_date_object <= selected_month_end or \
+               selected_month_start <= end_date_object <= selected_month_end:
+               holidays_in_selected_month += 1
+
+               print(f"Start Date: {start_date_str}")
+               print(f"End Date: {end_date_str}")
+               print(h)
+               print('hello')
+        
+        print(f"Number of holidays in {r}: {holidays_in_selected_month}")
         print(Holiday)
-        r=request.GET.get('month')
-        print(r)
-        return JsonResponse({"message":" success"})
+        return JsonResponse({"message": "success"})

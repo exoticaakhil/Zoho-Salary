@@ -155,7 +155,7 @@
             required onchange="getEmail()">
             <option value="" hidden selected>Select Employee</option>
             {% for cust in c %}
-              <option value="{{cust.id}}" data-email="{{cust.email}}" data-emp-number="{{cust.emp_number}}" data-emp-desigination="{{cust.designation}}" data-joiningdate="{{cust.joindate | date:'Y-m-d'}}" id="crt_cust">{{cust.first_name}} {{cust.last_name}}</option>
+              <option value="{{cust.id}}" data-email="{{cust.email}}" data-emp-number="{{cust.emp_number}}" data-emp-desigination="{{cust.designation}}" data-salary="{{cust.salary}}" data-joiningdate="{{cust.joindate | date:'Y-m-d'}}" id="crt_cust">{{cust.first_name}} {{cust.last_name}}</option>
             {% endfor %}
           </select>
           
@@ -194,6 +194,15 @@
           </div>
           <div class="row mt-2">
             <div class="col-md-3">
+                <label for="">salary</label>
+              </div>
+    
+              <div class="col-md-6">
+                <input type="text" class="form-control bg-light text-dark" id="salarybox" name="cx_treat" readonly>
+              </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-3">
                 <label for="">Joining Date</label>
               </div>
     
@@ -216,12 +225,18 @@
           </div>
 
           <div class="col-md-6">
-            <select name="month_select" id="month_select" class="form-control bg-light text-dark"
-        required onchange="updateMonthDetails()">
-</select>
+            <select name="month_select" id="month_select" class="form-control bg-light text-dark"required onchange="updateMonthDetails()"></select>
           </div>
         </div>
-        
+        <div class="row mt-2">
+            <div class="col-md-3">
+              <label for="date2">Holidays</label>
+            </div>
+  
+            <div class="col-md-6">
+              <input type="number" class="form-control bg-light text-dark" id="" name="sh_date">
+            </div>
+          </div>
 
 
 
@@ -239,7 +254,7 @@
         </div>
         <div class="row mt-2">
             <div class="col-md-3">
-              <label for="date2">Number of Working days</label>
+              <label for="date2">Leave</label>
             </div>
   
             <div class="col-md-6">
@@ -293,7 +308,25 @@
           </div>
           <div class="row mt-2">
             <div class="col-md-3">
+              <label for="date2">Bonus</label>
+            </div>
+  
+            <div class="col-md-6">
+              <input type="number" class="form-control bg-light text-dark" id="" name="sh_date">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-3">
               <label for="date2">Total working days</label>
+            </div>
+  
+            <div class="col-md-6">
+              <input type="number" class="form-control bg-light text-dark" id="" name="sh_date">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-3">
+              <label for="date2">Salary</label>
             </div>
   
             <div class="col-md-6">
@@ -1127,10 +1160,12 @@
       var employeeNumber = selectedOption.getAttribute("data-emp-number");
       var employeedesigination = selectedOption.getAttribute("data-emp-desigination");
       var employeedate = selectedOption.getAttribute("data-joiningdate");
+      var employeesalary = selectedOption.getAttribute("data-salary");
       document.getElementById("emailTextbox").value = email;
       document.getElementById("employeeNumberTextbox").value = employeeNumber;
       document.getElementById("employeedesiginationTextbox").value = employeedesigination;
-      document.getElementById("joiningDate").value = formatDate(joiningDate);
+      document.getElementById("joiningDate").value = employeedate ;
+      document.getElementById("salarybox").value = employeesalary ;
     }
   </script>
 <script>

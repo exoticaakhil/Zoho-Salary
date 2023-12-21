@@ -171,6 +171,7 @@
   .company-info h2 {
     margin: 0;
     font-size: 2em;
+    
   }
 
   .company-info p {
@@ -352,7 +353,7 @@
               </div>
               <div class="col-md-3 ">
                 <a class="btn btn btn-outline-warning text-right mt-2"
-                  style="height: 38px; padding-top: 12px; padding-left: 17px;" href="{% url 'create_sales_order' %}"><i
+                  style="height: 38px; padding-top: 12px; padding-left: 17px;" href="{% url 'create_salary' %}"><i
                     class="fa fa-plus "></i></a>
               </div>
               <div class="col-md-2">
@@ -428,19 +429,9 @@
                   Overview</a>
                 <a href=" " class=" btn fa fa-file-alt" data-bs-toggle="dropdown" id="attachmentDropdown"
                   aria-haspopup="true" aria-expanded="false"
-                  style="background-color: white; color: black; margin-right: 2vh;"> Templates
+                  style="background-color: white; color: black; margin-right: 2vh;" onclick="totemplate()"> PaySlip
                 </a>
-                <div class="dropdown-menu" aria-labelledby="attachmentDropdown">
-                  <a class="dropdown-item" onclick="totemplate()"><i class="fa fa-file-alt"></i> Template 1</a>
-
-                  <a class="dropdown-item" onclick="totemplate2()"><i class="fa fa-file-alt"></i>
-                    Template 2</a>
-
-                  <a class="dropdown-item" onclick="totemplate3()"><i class="fa fa-file-alt"></i>
-                    Template 3</a>
-
-
-                </div>
+             
 
               </div>
 
@@ -592,530 +583,13 @@
                 </div>
                 {% endif %}
               </div>
-              <div class="p-info col-6" style="height: 100%; margin-bottom: 1vh;">
-                <div class="card" style="background-color: rgb(110, 61, 46); padding-left: 1rem; padding-top: 1rem;">
-                  <div class="row text-center">
-                    <h2>PRODUCT INFORMATION
-                      <hr>
-                    </h2>
-                  </div>
-                  {% for i in saleitem %}
 
-                  <div class="row mt-2">
-                    <div class="col-5"><label for="">Product Name :</label></div>
-                    <div class="col-7">
-                      <p class="bold">{{i.product}}</p>
-                    </div>
-                  </div>
-                  <div class="row mt-2">
-                    <div class="col-5"><label for="">HSN Number :</label></div>
-                    <div class="col-7">
-                      <p class="bold">{{i.hsn}}</p>
-                    </div>
-                  </div>
-                  <div class="row mt-2">
-                    <div class="col-5"><label for="">Product Quantity :</label></div>
-                    <div class="col-7">
-                      <p class="bold">{{i.quantity}}</p>
-                    </div>
-                  </div>
-                  <div class="row mt-2">
-                    <div class="col-5"><label for="">Product Rate :</label></div>
-                    <div class="col-7">
-                      <p class="bold">{{i.rate}}</p>
-                    </div>
-                  </div>
-
-                  <div class="row mt-2">
-                    <div class="col-5"><label for="">Product Discount :</label></div>
-                    <div class="col-7">
-                      <p class="bold">{{i.desc}}</p>
-                    </div>
-                  </div>
-                  <div class="row mt-2">
-                    <div class="col-5"><label for="">Product Tax :</label></div>
-                    <div class="col-7">
-                      <p class="bold">{{i.tax}}</p>
-                    </div>
-                  </div>
-                  <div class="row mt-2">
-                    <div class="col-5"><label for="">Product Total :</label></div>
-                    <div class="col-7">
-                      <p class="bold">{{i.total}}</p>
-                    </div>
-                    <hr>
-                  </div>
-                  {% endfor %}
-                </div><br>
-              </div>
             </div>
 
-            <!-- <div class="row">
-            <div class="tab-content" style="background-color: rgba(252, 236, 217, 0.8); ">
-              <div class="tab-pane fade active show" id="overview" role="tabpanel" aria-labelledby="home-tab">
-                  <div class="row">
-                      <div class="col-md-6" id="orderinfo" 
-                      style="box-shadow: 5px 5px 10px rgb(45, 45, 45); background-color: #ffddb0; 
-                      border-radius: 1vh; overflow-y: scroll;height: 500px; margin-top: -2vh; " >
-                          <div class="overview text-dark" style="background-color: #ffddb0;" ><br>
-                              <h2 class="text-dark" style="text-transform: uppercase; font-size: x-large;"><b>Sales Order</b></h2>
-                              
-                              <table class="table-responsive saleordertable" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                  <tr>
-                                    <td>Sale Order No</td>
-                                    <td>:</td>
-                                    <td>{{sale.sales_no}}</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Reference</td>
-                                    <td>:</td>
-                                    <td>{{sale.reference}}</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Customer Name</td>
-                                    <td>:</td>
-                                    <td>{{sale.customer.customerName}}</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Customer Mail</td>
-                                    <td>:</td>
-                                    <td>{{sale.customer.customerEmail}}</td>
-                                  </tr>
-                                  <tr>
-                                    <td>GST Treatment</td>
-                                    <td>:</td>
-                                    <td>{{sale.customer.GSTTreatment}}</td>
-                                  </tr>
-                                  {% if sale.customer.GSTIN %}
-                                  <tr>
-                                    <td>GST Number</td>
-                                    <td>:</td>
-                                    <td>{{sale.customer.GSTIN}}</td>
-                                  </tr>
-                                  {% endif %}
-                                  <tr>
-                                    <td>Source of Supply</td>
-                                    <td>:</td>
-                                    <td>{{sale.sos}}</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Sale Order Date</td>
-                                    <td>:</td>
-                                    <td>{{sale.sales_date}}</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Expiry Date</td>
-                                    <td>:</td>
-                                    <td>{{sale.ship_date}}</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Payment Term</td>
-                                    <td>:</td>
-                                    <td>{{sale.terms.Terms}}</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Payment Method</td>
-                                    <td>:</td>
-                                    <td>{{sale.pay_method}}</td>
-                                  </tr>
-                                  {% if sale.pay_method == 'upi' %}
-                                  <tr>
-                                    <td>UPI ID</td>
-                                    <td>:</td>
-                                    <td>{{sale.upi_id}}</td>
-                                  </tr>
-                                  {% elif sale.pay_method == 'cheque' %}
-                                  <tr>
-                                    <td>Cheque ID</td>
-                                    <td>:</td>
-                                    <td>{{sale.cheque_id}}</td>
-                                  </tr>
-                                  {% elif sale.pay_method != 'cash' %}
-                                  <tr>
-                                    <td>Bank Account</td>
-                                    <td>:</td>
-                                    <td>{{bank.ac_no}}</td>
-                                  </tr>
-                                  {% endif %}
-                                  <tr>
-                                    <td>Subtotal</td>
-                                    <td>:</td>
-                                    <td>{{sale.subtotal}}</td>
-                                  </tr>
-                                  {% if sale.igst != '0.00' %}
-                                  <tr>
-                                    <td>IGST</td>
-                                    <td>:</td>
-                                    <td>{{sale.igst}}</td>
-                                  </tr>
-                                  {% endif %}
-                                  {% if sale.cgst != '0.00' %}
-                                  <tr>
-                                    <td>CGST</td>
-                                    <td>:</td>
-                                    <td>{{sale.cgst}}</td>
-                                  </tr>
-                                  {% endif %}
-                                  {% if sale.sgst != '0.00' %}
-                                  <tr>
-                                    <td>SGST</td>
-                                    <td>:</td>
-                                    <td>{{sale.sgst}}</td>
-                                  </tr>
-                                  {% endif %}
-                                  <tr>
-                                    <td>Tax Amount</td>
-                                    <td>:</td>
-                                    <td>{{sale.t_tax}}</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Shipping Charge</td>
-                                    <td>:</td>
-                                    <td>{{sale.sh_charge}}</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Adjustment</td>
-                                    <td>:</td>
-                                    <td>{{sale.adjust}}</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Total Amount</td>
-                                    <td>:</td>
-                                    <td>{{sale.grandtotal}}</td>
-                                  </tr>
-                                  {% if sale.advance != 0.0 %}
-                                  <tr>
-                                    <td>Advance</td>
-                                    <td>:</td>
-                                    <td>{{sale.advance}}</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Balance Amount</td>
-                                    <td>:</td>
-                                    <td>{{sale.balance}}</td>
-                                  </tr>
-                                  {% endif %}
-                                </tbody>
-                              </table> 
-                          </div>
-                      </div>
-                      <div class="col-md-6" >
-                          <div class="card" id="productinfo" style="background-color:#8b3131; padding:1rem; margin-top: -2vh;" >
-                              <div class="row" style="overflow-y: scroll;height: 500px; margin-top: -2vh; " >
-                                  <div class="card-title mb-4 mt-3" style="font-size: x-large;"><b>PRODUCT INFORMATION</b>
-                                  </div>
-                                      <table class="table table-responsive" id="producttable">
-                                        <tbody id="productbody">
-                                          {% for i in saleitem %}
-                                          <tr>
-                                            <td>Product Name</td>
-                                            <td>:</td>
-                                            <td>{{i.product}}</td>
-                                          </tr>
-                                          <tr>
-                                            <td>HSN Number</td>
-                                            <td>:</td>
-                                            <td>{{i.hsn}}</td>
-                                          </tr>
-                                          <tr>
-                                            <td>Product Quantity</td>
-                                            <td>:</td>
-                                            <td>{{i.quantity}}</td>
-                                          </tr>
-                                          <tr>
-                                            <td>Product Rate</td>
-                                            <td>:</td>
-                                            <td>{{i.rate}}</td>
-                                          </tr>
-                                          <tr>
-                                            <td>Product Discount</td>
-                                            <td>:</td>
-                                            <td>{{i.desc}}</td>
-                                          </tr>
-                                          <tr>
-                                            <td>Product Tax</td>
-                                            <td>:</td>
-                                            <td>{{i.tax}}</td>
-                                          </tr>
-                                          <tr >
-                                            <td>Product Total</td>
-                                            <td>:</td>
-                                            <td>{{i.total}}
-                                            </td>
-                                          </tr>
-                                          <tr style="border-bottom: solid; border-bottom-width: thin; ">
-                                            <td></td>
-                                          </tr>
-                                          {% endfor %}
-                                        </tbody>
-                                      </table>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  
-              </div>
-
-
-             
-          </div>
-          </div> -->
 
           </div>
 
-          <div class="col-md-9" id="slipdiv" style="display: none;">
-            <div class="row">
-              <div class="col-md-7">
-                <a class="text-white" style="font-size: 1.5rem;">
-                  <h2>{{sale.sales_no}}</h2>
-                </a>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <a class="btn" id="overviewbtn" onclick="tooverview()" style="background-color: chocolate; "><i
-                    class="fas fa-eye"></i> Overview</a>
-                <a href=" " class=" btn fa fa-file-alt" data-bs-toggle="dropdown" id="attachmentDropdown"
-                  aria-haspopup="true" aria-expanded="false"
-                  style="background-color: white; color: black; margin-left: 2vh;"> Templates
-                </a>
-
-                <div class="dropdown-menu" aria-labelledby="attachmentDropdown">
-                  <a class="dropdown-item" onclick="totemplate()"><i class="fa fa-file-alt"></i> Template 1</a>
-
-                  <a class="dropdown-item" onclick="totemplate2()"><i class="fa fa-file-alt"></i>
-                    Template 2</a>
-
-                  <a class="dropdown-item" onclick="totemplate3()"><i class="fa fa-file-alt"></i>
-                    Template 3</a>
-
-
-                </div>
-
-              </div>
-
-              <div class="col-md-6" style="text-align: center;">
-                {% if sale.status == "draft" %}
-                <a href="{% url 'convert_view' sale.id %}" class="btn btn-outline-warning" title="Save">
-                  <i class="fa fa-save" aria-hidden="true"></i>
-                </a>
-                {% endif %}
-                <a href="{% url 'edit_sales_order' sale.id %}" class=" text-dark">
-                  <button class="btn btn-outline-warning" title="Edit"><i class="fas fa-edit"></i></button>
-                </a>
-                <a class="text-dark" data-toggle="dropdown">
-                  <button class="btn btn-outline-warning " title="Share"><i class="fas fa-share"></i></button>
-                </a>
-                <div class="dropdown-menu ">
-                  <a class="dropdown-item" data-target="#shareBillEmail" data-toggle="modal">GMAIL</a>
-                  <a class="dropdown-item" href="javascript:void(0);" onclick="shareOnWhatsApp()">WhatsApp</a>
-                </div>
-
-                <a href="{% url 'delet_sales' sale.id %}" class="  text-dark">
-                  <button class="btn btn-outline-warning" title="Delete"><i class="fas fa-trash-alt"></i></button>
-                </a>
-                <a class="  text-dark" onclick="exportToPDF4()">
-                  <button class="btn btn-outline-warning" title="Pdf"><i class="fas fa-file-pdf-o"></i></button>
-                </a>
-                <a class=" text-dark" onclick="printSelectedArea4()">
-                  <button class="btn btn-outline-warning" title="Print"><i class="fas fa-print"></i>
-                  </button>
-                </a>
-                <a class="text-dark" onclick="show_slip()">
-                  <button class="btn btn-outline-warning" title="Slip"><i class="fas fa-receipt"></i></button></a>
-              </div>
-            </div>
-
-
-            <div style="background-color: rgb(255, 221, 176);" class="mx-2 my-4">
-
-              <div class="my-5 slip-page" size="A4">
-                <div class="row" style="margin-top: 20%; " id="printslip">
-                  <div class="col-md-3"></div>
-                  <div class="col-md-7">
-                    <div class="card bg-white" style="border: 1px dotted black;padding: 20px;">
-                      <div class="mt-2" style="text-align: center;padding: 15px;">
-                        <div class="text-center" style="font-size: 3vh; color: black;">
-                          <b>{{company.company_name}} </b>
-                        </div>
-                        <span style="font-size: x-small; color: black;">{{company.address}} <br>
-                          {{company.city}},
-                          {{company.state}}
-                          {{company.pincode}} <br>
-                          {{ company.contact_number }} <br>{{ company.company_email }}
-                        </span>
-                      </div>
-                      <div class="ml-4 mt-2" style="color: black;">
-                        <div class="row">
-                          <div class="col-md-6 text-left">Order No:</div>
-                          <div class="col-md-5 text-right">{{sale.sales_no}}</div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6 text-left">Customer Name:</div>
-                          <div class="col-md-5 text-right">{{sale.customer.customerName}}</div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6 text-left">Order Date :</div>
-                          <div class="col-md-5 text-right">{{sale.sales_date | date:'d-m-Y'}}</div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6 text-left">Shipment Date:</div>
-                          <div class="col-md-5 text-right">{{sale.ship_date | date:'d-m-Y'}}</div>
-                        </div>
-                      </div>
-                      <div><br>
-                        <div class="equal-length-container" style="color: black; font-weight: bold;">
-                          <div class="equal-length-item" style=" text-align: center;">
-                            Product
-                            <hr style="border-bottom: 1px solid black; margin-top:1vh; width:95%">
-                          </div>
-                          <div class="equal-length-item ml-2" style=" text-align:center;">
-                            HSN
-                            <hr style="border-bottom: 1px solid black; margin-top:1vh; width:60%;">
-                          </div>
-                          <div class="equal-length-item" style=" text-align: center; ">
-                            Qty
-                            <hr style="border-bottom: 1px solid black; margin-top:1vh; width:60%">
-                          </div>
-                          <div class="equal-length-item" style=" text-align: center; ">
-                            Price
-                            <hr style="border-bottom: 1px solid black; margin-top:1vh; width:60%">
-                          </div>
-                          <div class="equal-length-item" style=" text-align: center; ">
-                            Discount
-                            <hr style="border-bottom: 1px solid black; margin-top:1vh; width:60%">
-                          </div>
-                          <div class="equal-length-item" style=" text-align: center; ">
-                            Tax
-                            <hr style="border-bottom: 1px solid black; margin-top:1vh; width:60%">
-                          </div>
-                          <div class="equal-length-item" style=" text-align: center; ">
-                            Total
-                            <hr style="border-bottom: 1px solid black; margin-top:1vh; width:60%">
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        {% for j in saleitem %}
-                        <div class="equal-length-container"
-                          style="color: black; font-size: small; word-wrap: break-word; margin-bottom: 1vh;">
-                          <div class="equal-length-item" style="text-align: center; margin-left: 2px;">
-                            {{j.product}}
-                          </div>
-                          <div class="equal-length-item" style="text-align: right;">
-                            {{j.hsn}}
-                          </div>
-                          <div class="equal-length-item" style="text-align: center; ">
-                            {{j.quantity}}
-                          </div>
-                          <div class="equal-length-item" style="text-align: center; ">
-                            {{j.rate}}
-                          </div>
-                          <div class="equal-length-item" style="text-align: center; ">
-                            {{j.desc}}
-                          </div>
-                          <div class="equal-length-item" style="text-align: center; ">
-                            {{j.tax}}
-                          </div>
-                          <div class="equal-length-item" style="text-align: center; ">
-                            {{j.total}}
-                          </div>
-                        </div>
-                        {% endfor %}
-                      </div>
-
-                      <div><br>
-                        <div class="row ">
-                          <div class="col-md-5 text-left" style=" color: black;">
-                            Subtotal
-                          </div>
-                          <div class="col-md-6 " style="color: black;text-align: end;">
-                            {{ sale.subtotal }}
-                          </div>
-                        </div>
-                        {% if sale.igst != '0.00' %}
-                        <div class="row ">
-                          <div class="col-md-5 text-left " style=" color: black;">
-                            IGST
-                          </div>
-                          <div class="col-md-6" style="color: black;text-align: end;">
-                            {{ sale.igst }}
-                          </div>
-                        </div>
-                        {% else %}
-                        <div class="row">
-                          <div class="col-md-5 text-left" style=" color: black;">
-                            CGST
-                          </div>
-                          <div class="col-md-6 " style="color: black;text-align: end;">
-                            {{ sale.cgst }}
-                          </div>
-                        </div>
-                        <div class="row ">
-                          <div class="col-md-5 text-left" style=" color: black;">
-                            SGST
-                          </div>
-                          <div class="col-md-6 " style="color: black;text-align: end;">
-                            {{ sale.sgst }}
-                          </div>
-                        </div>
-                        {% endif %}
-                        <div class="row">
-                          <div class="col-md-5 text-left" style=" color: black;">
-                            Tax Amount
-                          </div>
-                          <div class="col-md-6 " style="color: black;text-align: end;">
-                            {{ sale.t_tax }}
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-5 text-left" style=" color: black;">
-                            Shipping Charge
-                          </div>
-                          <div class="col-md-6 " style="color: black;text-align: end;">
-                            {{ sale.sh_charge }}
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-5 text-left" style=" color: black;">
-                            Adjustment
-                          </div>
-                          <div class="col-md-6" style="color: black;text-align: end;">
-                            {{ sale.adjust }}
-                          </div>
-                        </div>
-                        {% if sale.advance != 0.0 %}
-                        <div class="row">
-                          <div class="col-md-5 text-left" style="color: black;">Advance </div>
-                          <div class="col-md-6" style="color: black;text-align: end;">
-                            {{sale.advance}}
-                          </div>
-                        </div>
-                        {% endif %}
-                        <hr class="ml-2 mr-2" style="color: black; border-bottom: 1px solid black; ">
-                      </div>
-
-
-                      <div class="mb-2">
-                        <div class="row">
-                          <div class="col-md-5 text-left ml-2"
-                            style=" font-size: large; color: black; font-weight: bold;">
-                            Total
-                          </div>
-                          <div class="col-md-6"
-                            style="font-size: large; color: black; font-weight: bold;text-align: end;">
-                            {{ sale.grandtotal }}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
+         
           <div class="col-md-9" id="templatediv" style="display: none;">
             <div class="row">
               <div class="col-md-7">
@@ -1128,22 +602,6 @@
               <div class="col-md-6">
                 <a class="btn" id="overviewbtn" onclick="tooverview()" style="background-color: chocolate; "><i
                     class="fas fa-eye"></i> Overview</a>
-                <a href=" " class=" btn fa fa-file-alt" data-bs-toggle="dropdown" id="attachmentDropdown"
-                  aria-haspopup="true" aria-expanded="false"
-                  style="background-color: white; color: black; margin-left: 2vh;"> Templates
-                </a>
-
-                <div class="dropdown-menu" aria-labelledby="attachmentDropdown">
-                  <a class="dropdown-item" onclick="totemplate()"><i class="fa fa-file-alt"></i> Template 1</a>
-
-                  <a class="dropdown-item" onclick="totemplate2()"><i class="fa fa-file-alt"></i>
-                    Template 2</a>
-
-                  <a class="dropdown-item" onclick="totemplate3()"><i class="fa fa-file-alt"></i>
-                    Template 3</a>
-
-
-                </div>
 
               </div>
 
@@ -1186,59 +644,67 @@
             <div class="mt-3 template2 whatToPrint2" style="height: auto;width: 100%; margin-left: -1vh">
 
               <section id="selected-area" style="background-color: rgb(255, 221, 176);height: auto;" class=" p-2 m-2">
-                <header style="	background-color: #8b3131;border-radius: 1rem;">
-                  <div class="logo ">
-                    <img class="ml-2" width="100rem" style="border-radius: 50%;" src="{% static 'images/zlogo.png' %}"
-                      alt="Company Logo">
-                  </div>
-                  <div style="background: #8b3131;color: white;" class="company-info">
-                    <h2 class="text-white">{{company.company_name}}</h2>
-                    <p class="text-white"> {{company.address}}<br>{{company.city}}</p>
-                    <p> {{company.contact_number}}</p>
-                    <p>{{company.company_email}}</p>
-                  </div>
-                </header>
+
                 <div class="invoice-box">
-                  <h1 class="text-dark">SalesOrder</h1>
+                  <h1 class="text-dark" style="text-align: center;">Pay Slip</h1>
+                    <div  class="company-info" style="text-align: center;">
+                      <h5 class="text-dark">{{company.company_name}}</h5>
+                      <p class="text-dark"> {{company.address}},{{company.city}}</p>
+                      <p  class="text-dark"> {{company.contact_number}} ,{{company.company_email}}</p>
+                    
+                      <img class="ml-2" width="100rem" style="border-radius: 50%;" src="{% static 'images/zlogo.png' %}"
+                      alt="Company Logo">
+                    </div>
+                  
                   <div class="invoice-header">
                     <div class="invoice-details text-dark">
                       <table>
                         <tr>
-                          <td class="table-cell text-black" style="border: none;">Sales No#</td>
+                          <td class="table-cell text-black" style="border: none;">Employee name</td>
                           <td class="table-cell text-black" style="border: none;">:</td>
                           <td class="table-cell text-black" style="border: none;">{{sale.sales_no}}</td>
                         </tr>
                         <tr>
-                          <td class="table-cell text-black" style="border: none;">Sales Order Date</td>
+                          <td class="table-cell text-black" style="border: none;">Employee ID</td>
                           <td class="table-cell text-black" style="border: none;">:</td>
                           <td class="table-cell text-black" style="border: none;">{{sale.sales_date}}</td>
                         </tr>
                         <tr>
-                          <td class="table-cell text-black" style="border: none;">Expiry Date</td>
+                          <td class="table-cell text-black" style="border: none;">Desigination</td>
                           <td class="table-cell text-black" style="border: none;">:</td>
                           <td class="table-cell text-black" style="border: none;">{{sale.ship_date}}</td>
                         </tr>
+                        <tr>
+                          <td class="table-cell text-black" style="border: none;">Date of joining</td>
+                          <td class="table-cell text-black" style="border: none;">:</td>
+                          <td class="table-cell text-black" style="border: none;">{{sale.ship_date}}</td>
+                        </tr>
+      
                       </table>
+                    
                     </div>
-                    <div class="client-details" style="width: 50vh;">
+                    <div class="invoice-details" style="width: 50vh;">
                       <table>
-                        <tr>
-                          <td class="table-cell text-black" style="border: none;"><b>{{sale.customer.customerName}}</b>
-                          </td>
-                        </tr>
-                        {% if sale.customer.Address1 %}
-                        <tr>
-                          <td class="table-cell text-black" style="border: none;">{{sale.customer.Address1}}</td>
-                        </tr>
-                        {% endif %}
-                        <tr>
-                          <td class="table-cell text-black" style="border: none;">{{sale.customer.GSTTreatment}}</td>
-                        </tr>
-                        {% if sale.customer.GSTIN %}
-                        <tr>
-                          <td class="table-cell text-black" style="border: none;">{{sale.customer.GSTIN}}</td>
-                        </tr>
-                        {% endif %}
+                          <tr>
+                            <td class="table-cell text-black" style="border: none;">Month</td>
+                            <td class="table-cell text-black" style="border: none;">:</td>
+                            <td class="table-cell text-black" style="border: none;">{{sale.ship_date}}</td>
+                          </tr>
+                          <tr>
+                            <td class="table-cell text-black" style="border: none;">leave taken </td>
+                            <td class="table-cell text-black" style="border: none;">:</td>
+                            <td class="table-cell text-black" style="border: none;">{{sale.ship_date}}</td>
+                          </tr>
+                          <tr>
+                            <td class="table-cell text-black" style="border: none;">company location</td>
+                            <td class="table-cell text-black" style="border: none;">:</td>
+                            <td class="table-cell text-black" style="border: none;">{{sale.ship_date}}</td>
+                          </tr>
+                          <tr>
+                            <td class="table-cell text-black" style="border: none;">working days</td>
+                            <td class="table-cell text-black" style="border: none;">:</td>
+                            <td class="table-cell text-black" style="border: none;">{{sale.ship_date}}</td>
+                          </tr>
                       </table>
                     </div>
                   </div>
@@ -1248,13 +714,14 @@
                       <tr>
 
                         <th id="th" style="text-align: center;">Product</th>
-                        <th id="th" style="text-align: center;">HSN</th>
-                        <th id="th" style="text-align: center;">Quantity</th>
-                        <th id="th" style="text-align: center;">Price</th>
-                        <th id="th" style="text-align: center;">Discount</th>
-                        <th id="th" style="text-align: center;">Tax %</th>
-                        <th id="th" style="text-align: center;"> Total</th>
+                        <th id="th" style="text-align: center;">Gross Amount</th>
+                        <th id="th" style="text-align: center;">deduction</th>
+                        <th id="th" style="text-align: center;">Total</th>
                       </tr>
+                      <tr><th style=" color: #000000;">Basic Pay</th></tr>
+                      <tr><th style=" color: #000000;">Conveyance Allowance</th></tr>
+                      <tr><th style=" color: #000000;">HRA</th></tr>
+                      <tr><th style=" color: #000000;">OtherAllowance</th></tr>
                     </thead>
                     <tbody>
                       {% for i in saleitem %}
@@ -1278,59 +745,7 @@
 
 
                       <div class="col-4">
-                        <table style="margin-left: 10vh;">
-                          <tr>
-                            <td class="table-cell text-black" style="border: none;">Subtotal</td>
-                            <td class="table-cell text-black" style="border: none;">:</td>
-                            <td class="table-cell text-black" style="border: none;"><b>{{sale.subtotal}}</b></td>
-                          </tr>
-                          {% if sale.igst != '0.00' %}
-                          <tr>
-                            <td class="table-cell text-black" style="border: none;">IGST</td>
-                            <td class="table-cell text-black" style="border: none;">:</td>
-                            <td class="table-cell text-black" style="border: none;">{{sale.igst}}</td>
-                          </tr>
-                          {% else %}
-                          <tr>
-                            <td class="table-cell text-black" style="border: none;">SGST</td>
-                            <td class="table-cell text-black" style="border: none;">:</td>
-                            <td class="table-cell text-black" style="border: none;">{{sale.sgst}}</td>
-                          </tr>
-                          <tr>
-                            <td class="table-cell text-black" style="border: none;">CGST</td>
-                            <td class="table-cell text-black" style="border: none;">:</td>
-                            <td class="table-cell text-black" style="border: none;">{{sale.cgst}}</td>
-                          </tr>
-                          {% endif %}
-                          <tr>
-                            <td class="table-cell text-black" style="border: none;">Tax Amount</td>
-                            <td class="table-cell text-black" style="border: none;">:</td>
-                            <td class="table-cell text-black" style="border: none;">{{sale.t_tax}}</td>
-                          </tr>
-                          <tr>
-                            <td class="table-cell text-black" style="border: none;">Shipping Charge</td>
-                            <td class="table-cell text-black" style="border: none;">:</td>
-                            <td class="table-cell text-black" style="border: none;">{{sale.sh_charge}}</td>
-                          </tr>
-                          <tr>
-                            <td class="table-cell text-black" style="border: none;">Adjustment</td>
-                            <td class="table-cell text-black" style="border: none;">:</td>
-                            <td class="table-cell text-black" style="border: none;">{{sale.adjust}}</td>
-                          </tr>
-                          {% if sale.advance != 0.0 %}
-                          <tr>
-                            <td class="table-cell text-black" style="border: none;">Advance</td>
-                            <td class="table-cell text-black" style="border: none;">:</td>
-                            <td class="table-cell text-black" style="border: none;">{{sale.advance}}</td>
-                          </tr>
-
-                          {% endif %}
-                          <tr>
-                            <td class="table-cell text-black" style="border: none;">Total</td>
-                            <td class="table-cell text-black" style="border: none;">:</td>
-                            <td class="table-cell text-black" style="border: none;">{{sale.grandtotal}}</td>
-                          </tr>
-                        </table>
+                        
                       </div>
 
                     </div>
@@ -1347,530 +762,10 @@
             </div>
           </div>
 
-          <div class="col-md-9" id="templatediv2" style="display: none;">
-            <div class="row">
-              <div class="col-md-7">
-                <a class="text-white" style="font-size: 1.5rem;">
-                  <h2>{{sale.sales_no}}</h2>
-                </a>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <a class="btn" id="overviewbtn" onclick="tooverview()" style="background-color: chocolate; "><i
-                    class="fas fa-eye"></i> Overview</a>
-                <a href=" " class=" btn fa fa-file-alt" data-bs-toggle="dropdown" id="attachmentDropdown"
-                  aria-haspopup="true" aria-expanded="false"
-                  style="background-color: white; color: black; margin-left: 2vh;"> Templates
-                </a>
+       
 
-                <div class="dropdown-menu" aria-labelledby="attachmentDropdown">
-                  <a class="dropdown-item" onclick="totemplate()"><i class="fa fa-file-alt"></i> Template 1</a>
-
-                  <a class="dropdown-item" onclick="totemplate2()"><i class="fa fa-file-alt"></i>
-                    Template 2</a>
-
-                  <a class="dropdown-item" onclick="totemplate3()"><i class="fa fa-file-alt"></i>
-                    Template 3</a>
-
-
-                </div>
-
-              </div>
-
-              <div class="col-md-6" style="text-align: center;">
-                {% if sale.status == "draft" %}
-                <a href="{% url 'convert_view' sale.id %}" class="btn btn-outline-warning" title="Save">
-                  <i class="fa fa-save" aria-hidden="true"></i>
-                </a>
-                {% endif %}
-                <a href="{% url 'edit_sales_order' sale.id %}" class=" text-dark">
-                  <button class="btn btn-outline-warning" title="Edit"><i class="fas fa-edit"></i></button>
-                </a>
-                <a class="text-dark" data-toggle="dropdown">
-                  <button class="btn btn-outline-warning " title="Share"><i class="fas fa-share"></i></button>
-                </a>
-                <div class="dropdown-menu ">
-                  <a class="dropdown-item" data-target="#shareBillEmail" data-toggle="modal">GMAIL</a>
-                  <a class="dropdown-item" href="javascript:void(0);" onclick="shareOnWhatsApp()">WhatsApp</a>
-                </div>
-
-                <a href="{% url 'delet_sales' sale.id %}" class="  text-dark">
-                  <button class="btn btn-outline-warning" title="Delete"><i class="fas fa-trash-alt"></i></button>
-                </a>
-                <a class="  text-dark" onclick="exportToPDF2()">
-                  <button class="btn btn-outline-warning" title="Pdf"><i class="fas fa-file-pdf-o"></i></button>
-                </a>
-                <a class=" text-dark" onclick="printSelectedArea2()">
-                  <button class="btn btn-outline-warning" title="Print"><i class="fas fa-print"></i>
-                  </button>
-                </a>
-                <a class="text-dark" onclick="show_slip()">
-                  <button class="btn btn-outline-warning" title="Slip"><i class="fas fa-receipt"></i></button></a>
-              </div>
-            </div>
-
-
-
-
-
-            <div id="template1" class="printTemplates template1">
-              <div class="my-3 page" style="background-color: rgb(255, 221, 176);" id="selected-area2">
-                <div class="p-5">
-                  <div style="background-color: #8b3131;border-radius: 1rem;padding: 20px;">
-                    <center class="h3"><b>SALES ORDER</b></center>
-                  </div>
-                  <div class="row mt-5">
-                    <div class="col-md-8">
-                      <h4 class="text-secondary" style="font-weight: bold;">{{company.company_name }}</h4>
-                      <p class="address" style="font-weight: bold;color: #000;">
-                        {{company.address}}<br>
-                        {{company.city}},
-                        {{company.state}}<br>
-                        {{company.pincode}}<br>
-                        {{company.company_email}}<br>
-                        {{company.contact_number}}<br>
-                      </p>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="top-left">
-                        <div class="graphic-path">
-                          <p>Sales Order No. #:<b>{{sale.sales_no}}</b></p>
-                        </div>
-                        <div class="mt-2">
-
-                          <p style="color: #000;">Sales Order Date:
-                            <b>{{ sale.sales_date | date:'d-m-Y'}}</b>
-                          </p>
-                          <p style="color: #000;">Expiry Date:
-                            <b>{{ sale.ship_date | date:'d-m-Y'}}</b>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <section class="top-content bb d-flex justify-content-between">
-                    <div class="logo">
-
-                    </div>
-
-                  </section>
-
-                  <section class="store-user">
-                    <div class="col-12">
-                      <div class="row bb pb-2 mt-3">
-                        <div class="col-4 pl-0">
-                          <label class="text-white bg-secondary w-100 p-1"><b>BILL
-                              TO</b></label>
-                          <h5 class="" style="font-weight: bold; color: #8b3131;">
-                            {{sale.customer.customerName}}</h5>
-                          <p class="address" style="font-weight: bold;color: #000;">
-                            {{sale.customer.customerEmail}}
-                            <br>
-                            {{sale.customer.Address1}}
-                            <br>
-
-                            <span>Mob: </span><b>{{sale.customer.phone1}}</b>
-                          </p>
-                        </div>
-                        <div class="col-4"></div>
-                        <div class="col-4 pr-0">
-                          <label class="text-white bg-secondary w-100 p-1"><b>GST Details</b></label>
-                          <h5 class="" style="font-weight: bold; color: #8b3131;">
-                            {{sale.customer.GSTTreatment}}</h5>
-                          <p class="address" style="font-weight: bold;color: #000;">
-                            {{ sale.customer.GSTIN}}
-                          </p>
-                        </div>
-                      </div>
-
-                    </div>
-                  </section>
-
-                  <section class="product-area mt-2">
-                    <table class="table table-hover table-bordered table-secondary">
-                      <thead>
-                        <tr class="">
-                          <th class="text-center" style="color:#8b3131;">Product</th>
-                          <th class="text-center" style="color:#8b3131;">HSN</th>
-                          <th class="text-center" style="color:#8b3131;">Quantity</th>
-                          <th class="text-center" style="color:#8b3131;">Price</th>
-                          <th class="text-center" style="color:#8b3131;">Discount</th>
-                          <th class="text-center" style="color:#8b3131;">Tax %</th>
-                          <th class="text-center" style="color:#8b3131;">Total</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for itm in saleitem %}
-                        <tr>
-                          <td class="text-center" style="color:#000">{{ itm.product }}</td>
-                          <td class="text-center" style="color:#000">{{ itm.hsn }}</td>
-                          <td class="text-center" style="color:#000">{{ itm.quantity }}</td>
-                          <td class="text-center" style="color:#000">{{ itm.rate }}</td>
-                          <td class="text-center" style="color:#000">{{ itm.desc }}</td>
-                          <td class="text-center" style="color:#000">{{ itm.tax }}</td>
-                          <td class="text-center" style="color:#000">{{ itm.total }}</td>
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                    </table>
-                  </section>
-
-                  <section class="balance-info">
-                    <div class="row mt-3">
-                      <div class="col-4">
-                        <table class="table table-borderless">
-                          <tbody>
-
-                            <!-- <tr >
-                                              <td style="color: #000;text-align: left;">Payment Type</td>
-                                              <td style="color: #000;text-align: left;">:</td>
-                                              {% if bank %}
-                                              <th style="color: #000;text-align: center;">{{bank.bankname}}</th>
-                                              {% else %}
-                                              <th style="color: #000;text-align: center;">{{pbill.payment_type}}</th>
-                                              {% endif %}
-                                          </tr>
-                                          <tr>
-                                              <td></td>
-                                              <td></td>
-                                              <td></td>
-                                              
-                                          </tr> -->
-                            {% if ewbill.note %}
-                            <tr>
-                              <td style="color: #000;text-align: left;">Note</td>
-                              <td style="color: #000;text-align: left;">:</td>
-                              <th style="color: #000;text-align: center;">{{ewbill.note}}
-                              </th>
-                            </tr>
-                            {% endif %}
-
-                          </tbody>
-                        </table>
-                      </div>
-                      <div class="col-4"></div>
-                      <div class="col-4">
-                        <table class="table table-borderless">
-                          <tbody>
-                            <tr>
-                              <td style="color: #000;">Sub Total</td>
-                              <td style="color: #000;">:</td>
-                              <td class="text-center" style="color: #000;">
-                                {{sale.subtotal}}</td>
-                            </tr>
-                            {% if sale.igst != '0.00' %}
-                            <tr>
-                              <td style="color: #000;">IGST</td>
-                              <td style="color: #000;">:</td>
-                              <td class="text-center" style="color: #000;">
-                                {{sale.igst}}</td>
-                            </tr>
-                            {% else %}
-                            <tr>
-                              <td style="color: #000;">SGST</td>
-                              <td style="color: #000;">:</td>
-                              <td class="text-center" style="color: #000;">
-                                {{sale.sgst}}</td>
-                            </tr>
-                            <tr>
-                              <td style="color: #000;">CGST</td>
-                              <td style="color: #000;">:</td>
-                              <td class="text-center" style="color: #000;">
-                                {{sale.cgst}}</td>
-                            </tr>
-                            {% endif %}
-                            <tr>
-                              <td style="color: #000;">Tax Amount</td>
-                              <td style="color: #000;">:</td>
-                              <td class="text-center" style="color: #000;">
-                                {{sale.t_tax}}</td>
-                            </tr>
-                            <tr>
-                              <td style="color: #000;">Shipping Charge</td>
-                              <td style="color: #000;">:</td>
-                              <td class="text-center" style="color: #000;">
-                                {{sale.sh_charge}}</td>
-                            </tr>
-                            <tr>
-                              <td style="color: #000;">Adjustment</td>
-                              <td style="color: #000;">:</td>
-                              <td class="text-center" style="color: #000;">
-                                {{sale.adjust}}</td>
-                            </tr>
-                            {% if sale.advance != 0.0 %}
-                            <tr>
-                              <td style="color: #000;">Advance</td>
-                              <td style="color: #000;">:</td>
-                              <td class="text-center" style="color: #000;">
-                                {{sale.advance}}</td>
-                            </tr>
-                            {% endif %}
-                            <tr>
-                              <td style="color: #000;">Total</td>
-                              <td style="color: #000;">:</td>
-                              <td class="text-center" style="color: #000;">
-                                <b>{{sale.grandtotal}}</b>
-                              </td>
-                            </tr>
-
-                          </tbody>
-
-                        </table>
-
-                      </div>
-                    </div>
-                    <footer class="mb-5">
-                      <p class="text-dark">&copy; Zho Books 2023 | Info park kakkanad kochi,
-                        Ernamkulam,
-                        kerala India 12345
-                        | Phone: (123) 456-7890 | Email: info@zohodjango.com</p>
-                    </footer>
-                  </section>
-
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="col-md-9" id="templatediv3" style="display: none;">
-            <div class="row">
-              <div class="col-md-7">
-                <a class="text-white" style="font-size: 1.5rem;">
-                  <h2>{{sale.sales_no}}</h2>
-                </a>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <a class="btn" id="overviewbtn" onclick="tooverview()" style="background-color: chocolate;"><i
-                    class="fas fa-eye"></i> Overview</a>
-                <a href=" " class=" btn fa fa-file-alt" data-bs-toggle="dropdown" id="attachmentDropdown"
-                  aria-haspopup="true" aria-expanded="false"
-                  style="background-color: white; color: black; margin-left: 2vh;"> Templates
-                </a>
-
-                <div class="dropdown-menu" aria-labelledby="attachmentDropdown">
-                  <a class="dropdown-item" onclick="totemplate()"><i class="fa fa-file-alt"></i> Template 1</a>
-
-                  <a class="dropdown-item" onclick="totemplate2()"><i class="fa fa-file-alt"></i>
-                    Template 2</a>
-
-                  <a class="dropdown-item" onclick="totemplate3()"><i class="fa fa-file-alt"></i>
-                    Template 3</a>
-
-
-                </div>
-
-              </div>
-
-              <div class="col-md-6" style="text-align: center;">
-                {% if sale.status == "draft" %}
-                <a href="{% url 'convert_view' sale.id %}" class="btn btn-outline-warning" title="Save">
-                  <i class="fa fa-save" aria-hidden="true"></i>
-                </a>
-                {% endif %}
-                <a href="{% url 'edit_sales_order' sale.id %}" class=" text-dark">
-                  <button class="btn btn-outline-warning" title="Edit"><i class="fas fa-edit"></i></button>
-                </a>
-                <a class="text-dark" data-toggle="dropdown">
-                  <button class="btn btn-outline-warning " title="Share"><i class="fas fa-share"></i></button>
-                </a>
-                <div class="dropdown-menu ">
-                  <a class="dropdown-item" data-target="#shareBillEmail" data-toggle="modal">GMAIL</a>
-                  <a class="dropdown-item" href="javascript:void(0);" onclick="shareOnWhatsApp()">WhatsApp</a>
-                </div>
-
-                <a href="{% url 'delet_sales' sale.id %}" class="  text-dark">
-                  <button class="btn btn-outline-warning" title="Delete"><i class="fas fa-trash-alt"></i></button>
-                </a>
-                <a class="  text-dark" onclick="exportToPDF3()">
-                  <button class="btn btn-outline-warning" title="Pdf"><i class="fas fa-file-pdf-o"></i></button>
-                </a>
-                <a class=" text-dark" onclick="printSelectedArea3()">
-                  <button class="btn btn-outline-warning" title="Print"><i class="fas fa-print"></i>
-                  </button>
-                </a>
-                <a class="text-dark" onclick="show_slip()">
-                  <button class="btn btn-outline-warning" title="Slip"><i class="fas fa-receipt"></i></button></a>
-              </div>
-            </div>
-
-
-
-
-
-            <div id="template3" class="template3">
-              <div class="my-5 page" size="A4" style="background-color: rgb(255, 221, 176);">
-                <div class="p-5" id="selected-area3">
-                  <section class="top-content bb d-flex justify-content-between" style="background-color: #8b3131;">
-                    <div class="logo">
-                      <!-- <img src="logo.png" alt="" class="img-fluid"> -->
-                    </div>
-                    <div class="top-left">
-                      <div class="graphic-path">
-                        <p>Sales Order</p>
-                      </div>
-                      <div class="position-relative" style="margin-right: 5px;">
-                        <p>Sales Order No.
-                          <span>{{sale.sales_no}}</span>
-                        </p>
-                      </div>
-                    </div>
-                  </section>
-
-                  <section class="store-user mt-5">
-                    <div class="col-12">
-                      <div class="row bb pb-3">
-                        <div class="col-7">
-                          <p>FROM,</p>
-                          <h5>{{company.company_name }}</h5>
-                          <p class="address "> {{company.address}}<br>
-                            {{company.city}},
-                            {{company.state}}<br>
-                            {{company.pincode}}<br>
-                          </p>
-
-                        </div>
-                        <div class="col-5">
-                          <p>TO,</p>
-                          <h5>{{sale.customer.customerName}}</h5>
-                          <p class="address col-9" style="margin-left: 0px;">
-                            {{sale.customer.Address1}} </p><br>
-                          <p class="address col-9">{{sale.customer.GSTTreatment}}</p><br>
-                          <p class="address col-9">{{sale.customer.GSTIN}}</p>
-
-
-                        </div>
-                      </div>
-                      <div class="row extra-info pt-3">
-                        <div class="col-7">
-                          <p>Sales Order Date:
-                            <span>{{sale.sales_date |date:'d-m-Y'}}</span>
-                          </p>
-                          <p>Expiry Date:
-                            <span>{{sale.ship_date |date:'d-m-Y'}}</span>
-                          </p>
-                        </div>
-
-                      </div>
-                    </div>
-                  </section>
-
-                  <section class="product-area mt-4">
-                    <table class=" table table-hover table-bordered " id="table1">
-                      <thead>
-                        <tr>
-                          <td style="text-align: center; font-weight:bold; color:black ">Items</td>
-                          <td style="font-weight:bold; color:black">HSN</td>
-                          <td style="font-weight:bold; color:black">Quantity</td>
-                          <td style="font-weight:bold; color:black">Price</td>
-                          <td style="font-weight:bold; color:black">Discount</td>
-                          <td style="font-weight:bold; color:black">Tax %</td>
-                          <td style="font-weight:bold; color:black">Total</td>
-
-                        </tr>
-                      </thead>
-                      <tbody>
-
-                        {% for j in saleitem %}
-                        <tr>
-                          <td style="color:black; text-align: center;">{{j.product}}</td>
-                          <td style="color:black">{{j.hsn}}</td>
-                          <td style="color:black">{{j.quantity}}</td>
-                          <td style="color:black">{{j.rate}} </td>
-                          <td style="color:black">{{j.desc}} </td>
-                          <td style="color:black">{{j.tax}} </td>
-                          <td style="color:black">{{j.total}} </td>
-
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                    </table><br><br>
-                  </section>
-
-                  <section class="balance-info">
-                    <div class="row">
-                      <div class="col-4"></div>
-                      <div class="col-4"></div>
-                      <div class="col-4">
-                        <table class="table table-borderless">
-                          <tbody>
-                            <tr>
-                              <td style="color: #000;">Sub Total</td>
-                              <td style="color: #000;">:</td>
-                              <td class="text-right" style="color: #000;">
-                                {{sale.subtotal}}</td>
-                            </tr>
-                            {% if sale.igst != '0.00' %}
-                            <tr>
-                              <td style="color: #000;">IGST</td>
-                              <td style="color: #000;">:</td>
-                              <td class="text-right" style="color: #000;">
-                                {{sale.igst}}</td>
-                            </tr>
-                            {% else %}
-                            <tr>
-                              <td style="color: #000;">SGST</td>
-                              <td style="color: #000;">:</td>
-                              <td class="text-right" style="color: #000;">
-                                {{sale.sgst}}</td>
-                            </tr>
-                            <tr>
-                              <td style="color: #000;">CGST</td>
-                              <td style="color: #000;">:</td>
-                              <td class="text-right" style="color: #000;">
-                                {{sale.cgst}}</td>
-                            </tr>
-                            {% endif %}
-                            <tr>
-                              <td style="color: #000;">Tax Amount</td>
-                              <td style="color: #000;">:</td>
-                              <td class="text-right" style="color: #000;">
-                                {{sale.t_tax}}</td>
-                            </tr>
-                            <tr>
-                              <td style="color: #000;">Shipping Charge</td>
-                              <td style="color: #000;">:</td>
-                              <td class="text-right" style="color: #000;">{{sale.sh_charge}}</td>
-                            </tr>
-                            <tr>
-                              <td style="color: #000;">Adjustment</td>
-                              <td style="color: #000;">:</td>
-                              <td class="text-right" style="color: #000;">{{sale.adjust}}</td>
-                            </tr>
-                            {% if sale.advance != 0.0 %}
-                            <tr>
-                              <td style="color: #000;">Advance</td>
-                              <td style="color: #000;">:</td>
-                              <td class="text-center" style="color: #000;">{{sale.advance}}</td>
-                            </tr>
-
-                            {% endif %}
-                            <tr>
-                              <td style="color: #000;">Total</td>
-                              <td style="color: #000;">:</td>
-                              <td class="text-right" style="color: #000;">
-                                <b>{{sale.grandtotal}}</b>
-                              </td>
-                            </tr>
-
-                          </tbody>
-
-                        </table>
-
-                      </div>
-
-                      <footer class="mb-5">
-                        <p class="text-dark">&copy; Zho Books 2023 | Info park kakkanad kochi,
-                          Ernamkulam,
-                          kerala India 12345
-                          | Phone: (123) 456-7890 | Email: info@zohodjango.com</p>
-                      </footer>
-                    </div>
-                  </section>
-
+         
+            
                   <!-- Cart BG -->
                   <img src="cart.jpg" class="img-fluid cart-bg" alt="">
 
@@ -2146,21 +1041,7 @@
     document.getElementById('slipdiv').style.display = 'none'
 
   }
-  function totemplate2() {
-    document.getElementById('templatediv').style.display = 'none'
-    document.getElementById('templatediv2').style.display = 'block'
-    document.getElementById('templatediv3').style.display = 'none'
-    document.getElementById('overviewdiv').style.display = 'none'
-    document.getElementById('slipdiv').style.display = 'none'
-
-  }
-  function totemplate3() {
-    document.getElementById('templatediv').style.display = 'none'
-    document.getElementById('templatediv2').style.display = 'none'
-    document.getElementById('templatediv3').style.display = 'block'
-    document.getElementById('overviewdiv').style.display = 'none'
-    document.getElementById('slipdiv').style.display = 'none'
-  }
+  
   function tooverview() {
     document.getElementById('templatediv').style.display = 'none'
     document.getElementById('overviewdiv').style.display = 'block'
