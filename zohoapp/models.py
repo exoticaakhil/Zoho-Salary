@@ -1938,3 +1938,30 @@ class Attendance_comments(models.Model):
 
     company = models.ForeignKey(company_details,on_delete=models.CASCADE,null=True,blank=True)
     comments=models.CharField(max_length=500,null=True,blank=True)
+
+
+
+############################ Akhil A #########################################
+class salary_deatils(models.Model):
+    employee_name=models.CharField(max_length=255,null=True,blank=True)
+    employee_mail=models.EmailField()
+    employee_id=models.CharField(max_length=20,null=True,blank=True)
+    Desigination=models.CharField(max_length=255,null=True,blank=True)
+    employee_salary=models.IntegerField(null=True,blank=True)
+    employee_joindate=models.DateField(null=True,blank=True)
+    employee_salarydate=models.DateField(null=True,blank=True)
+    employee_month=models.CharField(max_length=255,null=True,blank=True)
+    employee_holiday=models.IntegerField(null=True,blank=True)
+    employee_workingday=models.IntegerField(null=True,blank=True)
+    employee_year=models.IntegerField(null=True,blank=True)
+    employee_leave=models.IntegerField(null=True,blank=True)
+    employee_casual_leave=models.IntegerField(null=True,blank=True)
+    employee_basicsalary=models.IntegerField(null=True,blank=True)
+    employee_Allowance=models.IntegerField(null=True,blank=True)
+    employee_HRA=models.IntegerField(null=True,blank=True)
+    employee_otherall=models.IntegerField(null=True,blank=True)
+    employee_Bonus=models.IntegerField(null=True,blank=True)
+    employee_Tsalary=models.IntegerField(null=True,blank=True)
+    employee_discription=models.CharField(max_length=255,null=True,blank=True)
+    
+

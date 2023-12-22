@@ -129,7 +129,7 @@
   <div class="card " style="width: 100%;">
     <div class="card-body">
       <div class="card-title">
-        <h2 class="mb-0 text-uppercase text-right"> Add salary Details</h2>
+        <h2 class="mb-0 text-uppercase text-right"> Edit salary Details</h2>
         {% for message in messages %}
         <div class="alert alert-success">
           <a class="close" href="#" data-dismiss="alert">x</a>
@@ -180,7 +180,7 @@
                 <label for="">Employee id</label>
               </div>
               <div class="col-md-6">
-                <input type="text" class="form-control bg-light text-dark" id="employeeNumberTextbox" name="ex_id" readonly>
+                <input type="text" class="form-control bg-light text-dark" id="employeeNumberTextbox" name="cx_treat" readonly>
               </div>
           </div>
         <div class="row mt-2">
@@ -189,7 +189,7 @@
               </div>
     
               <div class="col-md-6">
-                <input type="text" class="form-control bg-light text-dark" id="employeedesiginationTextbox" name="ex_des" readonly>
+                <input type="text" class="form-control bg-light text-dark" id="employeedesiginationTextbox" name="cx_treat" readonly>
               </div>
           </div>
           <div class="row mt-2">
@@ -198,7 +198,7 @@
               </div>
     
               <div class="col-md-6">
-                <input type="text" class="form-control bg-light text-dark" id="salarybox" name="ex_salary" readonly>
+                <input type="text" class="form-control bg-light text-dark" id="salarybox" name="cx_treat" readonly>
               </div>
           </div>
           <div class="row mt-2">
@@ -207,7 +207,7 @@
               </div>
     
               <div class="col-md-6">
-                <input type="date" class="form-control bg-light text-dark" id="joiningDate" name="ex_jdate" readonly>
+                <input type="date" class="form-control bg-light text-dark" id="joiningDate" name="cx_treat" readonly>
               </div>
           </div>
         <div class="row mt-2">
@@ -216,7 +216,7 @@
           </div>
 
           <div class="col-md-6">
-            <input type="date" class="form-control bg-light text-dark" id="currentDateTextbox" name="ex_sdate">
+            <input type="date" class="form-control bg-light text-dark" id="currentDateTextbox" name="sa_date">
           </div>
         </div>
         <div class="row mt-2">
@@ -225,7 +225,7 @@
           </div>
 
           <div class="col-md-6">
-            <select name="month_select" id="month_select" class="form-control bg-light text-dark"required onchange="updateMonthDetails()" name="ex_month"></select>
+            <select name="month_select" id="month_select" class="form-control bg-light text-dark"required onchange="updateMonthDetails()"></select>
           </div>
         </div>
         <div class="row mt-2">
@@ -234,18 +234,10 @@
             </div>
   
             <div class="col-md-6">
-              <input type="number" class="form-control bg-light text-dark" id="holiday" name="ex_holiday">
+              <input type="number" class="form-control bg-light text-dark" id="" name="sh_date">
             </div>
           </div>
-          <div class="row mt-2">
-            <div class="col-md-3">
-              <label for="date2">Working days</label>
-            </div>
-  
-            <div class="col-md-6">
-              <input type="number" class="form-control bg-light text-dark" id="workingdays" name="ex_workingdays">
-            </div>
-          </div>
+
 
 
 
@@ -255,7 +247,7 @@
           </div>
 
           <div class="col-md-6">
-            <select name="year" id="yearSelect" class="form-control bg-light text-dark" name="ex_year"  required>
+            <select name="year" id="yearSelect" class="form-control bg-light text-dark"  required>
                 <!-- JavaScript will dynamically populate the options here -->
               </select>
           </div>
@@ -266,7 +258,7 @@
             </div>
   
             <div class="col-md-6">
-              <input type="number" class="form-control bg-light text-dark" id="" name="ex_leave">
+              <input type="number" class="form-control bg-light text-dark" id="" name="sh_date">
             </div>
           </div>
         <div class="row mt-2">
@@ -275,7 +267,7 @@
             </div>
   
             <div class="col-md-6">
-              <input type="number" class="form-control bg-light text-dark" id="" name="ex_cleave">
+              <input type="number" class="form-control bg-light text-dark" id="" name="sh_date">
             </div>
           </div>
           <div class="row mt-2">
@@ -284,7 +276,7 @@
             </div>
   
             <div class="col-md-6">
-              <input type="number" class="form-control bg-light text-dark" id="" name="ex_bsalary">
+              <input type="number" class="form-control bg-light text-dark" id="" name="sh_date">
             </div>
           </div>
           <div class="row mt-2">
@@ -293,7 +285,7 @@
             </div>
   
             <div class="col-md-6">
-              <input type="number" class="form-control bg-light text-dark" id="" name="ex_callow">
+              <input type="number" class="form-control bg-light text-dark" id="" name="sh_date">
             </div>
           </div>
           <div class="row mt-2">
@@ -302,7 +294,7 @@
             </div>
   
             <div class="col-md-6">
-              <input type="number" class="form-control bg-light text-dark" id="" name="ex_hra">
+              <input type="number" class="form-control bg-light text-dark" id="" name="sh_date">
             </div>
           </div>
           <div class="row mt-2">
@@ -311,7 +303,7 @@
             </div>
   
             <div class="col-md-6">
-              <input type="number" class="form-control bg-light text-dark" id="" name="ex_oallow">
+              <input type="number" class="form-control bg-light text-dark" id="" name="sh_date">
             </div>
           </div>
           <div class="row mt-2">
@@ -320,7 +312,16 @@
             </div>
   
             <div class="col-md-6">
-              <input type="number" class="form-control bg-light text-dark" id="" name="ex_bonus">
+              <input type="number" class="form-control bg-light text-dark" id="" name="sh_date">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-3">
+              <label for="date2">Total working days</label>
+            </div>
+  
+            <div class="col-md-6">
+              <input type="number" class="form-control bg-light text-dark" id="" name="sh_date">
             </div>
           </div>
           <div class="row mt-2">
@@ -329,16 +330,7 @@
             </div>
   
             <div class="col-md-6">
-              <input type="number" class="form-control bg-light text-dark" id="" name="ex_csalary">
-            </div>
-          </div>
-          <div class="row mt-2">
-            <div class="col-md-3">
-              <label for="date2">Discription</label>
-            </div>
-  
-            <div class="col-md-6">
-              <textarea  class="form-control bg-light text-dark" id="" name="ex_discription"></textarea>
+              <input type="number" class="form-control bg-light text-dark" id="" name="sh_date">
             </div>
           </div>
         <div class="row mt-5 mb-3">
@@ -1108,10 +1100,7 @@
                 csrfmiddlewaretoken: '{{ csrf_token }}',
 
                 success: function(data) {
-                        console.log(data.day);
-                        document.getElementById("workingdays").value = data.day;
-                        document.getElementById("holiday").value = data.hol;
-
+                        console.log(data);
 
                     },
                 error: function(xhr, status, error) {

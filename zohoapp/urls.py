@@ -1213,6 +1213,7 @@ urlpatterns = [
     path('salary_deatils/<int:id>',views.salary_deatils,name='salary_deatils'),
     path('createpayrollonsalary',views.createpayrollonsalary,name='createpayrollonsalary'),
     path('monthselection',views.monthselection,name='monthselection'),
+    path('edit_salary',views.edit_salary,name='edit_salary'),
 
 
    

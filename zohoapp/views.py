@@ -27010,8 +27010,8 @@ def add_salary_details(request):
     if request.user.is_authenticated:
         if request.method=='POST':
             c=request.POST['ex_name']
-            cus=Payroll.objects.get(id=c)   
-            custo=cus.id
+             
+            
             
 
             return redirect('view_sales_order')     
@@ -27120,33 +27120,61 @@ def monthselection(request):
         print(f"Selected month string: {r}")
         company = company_details.objects.get(user_id=usr)
         print(company)
-        Holiday = Events.objects.filter(company=company)
-
-        try:
-            selected_month_start = datetime.strptime(r, "%B").replace(day=1)
-            selected_month_end = (selected_month_start.replace(month=selected_month_start.month % 12 + 1, day=1) - timedelta(days=1))
-        except ValueError as e:
-            print(f"Error parsing selected month: {e}")
-            return JsonResponse({"message": "error"})
-
-        holidays_in_selected_month = 0
-
-        for h in Holiday:
-            start_date_str = h.start_date.strftime("%d-%m-%Y")
-            end_date_str = h.end_date.strftime("%d-%m-%Y")
-            
-            start_date_object = datetime.strptime(start_date_str, "%d-%m-%Y")
-            end_date_object = datetime.strptime(end_date_str, "%d-%m-%Y")
-            
-            if selected_month_start <= start_date_object <= selected_month_end or \
-               selected_month_start <= end_date_object <= selected_month_end:
-               holidays_in_selected_month += 1
-
-               print(f"Start Date: {start_date_str}")
-               print(f"End Date: {end_date_str}")
-               print(h)
-               print('hello')
+        all_events = Events.objects.filter(company=company)
+        event_counts = {}
+        formatted_event_counts = {}
         
-        print(f"Number of holidays in {r}: {holidays_in_selected_month}")
-        print(Holiday)
-        return JsonResponse({"message": "success"})
+        # Initialize selected_month_days to None
+        selected_month_days = None
+
+        for event in all_events:
+            month_year = event.start_date.strftime('%Y-%m')  # Format: 'YYYY-MM'
+            year, month = map(int, month_year.split('-'))
+            
+            event_duration = (event.end_date - event.start_date).days + 1 if event.end_date else 1
+
+            
+            
+            # If the selected month matches the event's month_name, get the number of days
+
+            # If the month_year is not in the dictionary, add it with a count of 1
+            if month_year not in event_counts:
+                event_counts[month_year] = event_duration
+            else:
+                # If the month_year is already in the dictionary, increment the count
+                event_counts[month_year] += event_duration
+        for key, value in event_counts.items():
+                year, month = map(int, key.split('-'))
+                total_days = calendar.monthrange(year, month)[1]
+                month_name = calendar.month_name[int(month)]
+                formatted_month_year = f"{month_name}-{year}"
+                formatted_event_counts[formatted_month_year] = {'count': value, 'total_days': total_days, 'month': month_name, 'year': year}
+                # print(month_name)
+       
+        print(formatted_event_counts)  
+        for key, value in formatted_event_counts.items():
+            mon=value['month']
+            print(mon)
+        
+
+        # print(event_counts)
+            if r == mon:
+                day=value['total_days']-value['count']
+                hol=value['count']
+                
+        
+
+        print(f"Selected month ({r}) days: {day}")
+        # context = {
+        #     "events": all_events,
+        #     "event_counts_json": formatted_event_counts,
+        #     "company": company,
+        #     "day":day
+        # }
+
+        # Return the selected_month_days along with other data in the JsonResponse
+        return JsonResponse({"day":day,"hol":hol})
+def edit_salary(request):
+    user = request.user
+    company = company_details.objects.get(user=user)
+    return render(request,'edit_salary.html')
