@@ -198,7 +198,7 @@
               </div>
     
               <div class="col-md-6">
-                <input type="text" class="form-control bg-light text-dark" id="salarybox" name="ex_salary" readonly>
+                <input type="text" class="form-control bg-light text-dark" id="salarybox" name="ex_salary"  oninput="calculateSalary()" readonly>
               </div>
           </div>
           <div class="row mt-2">
@@ -266,7 +266,7 @@
             </div>
   
             <div class="col-md-6">
-              <input type="number" class="form-control bg-light text-dark" id="" name="ex_leave">
+              <input type="number" class="form-control bg-light text-dark" id="ex_leave" name="ex_leave">
             </div>
           </div>
         <div class="row mt-2">
@@ -275,7 +275,7 @@
             </div>
   
             <div class="col-md-6">
-              <input type="number" class="form-control bg-light text-dark" id="" name="ex_cleave">
+              <input type="number" class="form-control bg-light text-dark" id="ex_cleave" name="ex_cleave">
             </div>
           </div>
           <div class="row mt-2">
@@ -284,7 +284,7 @@
             </div>
   
             <div class="col-md-6">
-              <input type="number" class="form-control bg-light text-dark" id="" name="ex_bsalary">
+              <input type="number" class="form-control bg-light text-dark"id="ex_bsalary" name="ex_bsalary">
             </div>
           </div>
           <div class="row mt-2">
@@ -293,7 +293,7 @@
             </div>
   
             <div class="col-md-6">
-              <input type="number" class="form-control bg-light text-dark" id="" name="ex_callow">
+              <input type="number" class="form-control bg-light text-dark" id="ex_callow" name="ex_callow">
             </div>
           </div>
           <div class="row mt-2">
@@ -302,7 +302,7 @@
             </div>
   
             <div class="col-md-6">
-              <input type="number" class="form-control bg-light text-dark" id="" name="ex_hra">
+              <input type="number" class="form-control bg-light text-dark" id="ex_hra" name="ex_hra">
             </div>
           </div>
           <div class="row mt-2">
@@ -311,7 +311,7 @@
             </div>
   
             <div class="col-md-6">
-              <input type="number" class="form-control bg-light text-dark" id="" name="ex_oallow">
+              <input type="number" class="form-control bg-light text-dark" id="ex_oallow" name="ex_oallow">
             </div>
           </div>
           <div class="row mt-2">
@@ -320,7 +320,16 @@
             </div>
   
             <div class="col-md-6">
-              <input type="number" class="form-control bg-light text-dark" id="" name="ex_bonus">
+              <input type="number" class="form-control bg-light text-dark" id="ex_bonus" name="ex_bonus">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-3">
+              <label for="date2">otherCuttings</label>
+            </div>
+  
+            <div class="col-md-6">
+              <input type="number" class="form-control bg-light text-dark" id="ex_ocuttings" name="ex_ocuttings">
             </div>
           </div>
           <div class="row mt-2">
@@ -329,7 +338,7 @@
             </div>
   
             <div class="col-md-6">
-              <input type="number" class="form-control bg-light text-dark" id="" name="ex_csalary">
+              <input type="number" class="form-control bg-light text-dark" id="ex_csalary" name="ex_csalary">
             </div>
           </div>
           <div class="row mt-2">
@@ -1065,6 +1074,22 @@
 
         return true; 
     }
+</script>
+<script>
+  function calculateSalary() {
+      // Get values from input fields
+      var basicSalary = parseFloat(document.getElementById("salarybox").value) || 0;
+      var leave = parseFloat(document.getElementById("ex_leave").value) || 0;
+      var otherCuttings = parseFloat(document.getElementById("ex_ocuttings").value) || 0;
+      var bonus = parseFloat(document.getElementById("ex_bonus").value) || 0;
+
+      // Perform the calculation
+      var salary = basicSalary - leave - otherCuttings + bonus;
+      console.log(salary)
+
+      // Display the result in the "Salary" input field
+      document.getElementById("ex_csalary").value = salary;
+  }
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {

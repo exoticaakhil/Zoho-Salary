@@ -27151,18 +27151,19 @@ def monthselection(request):
                 formatted_event_counts[formatted_month_year] = {'count': value, 'total_days': total_days, 'month': month_name, 'year': year}
                 # print(month_name)
        
-        print(formatted_event_counts)  
-        for key, value in formatted_event_counts.items():
-            mon=value['month']
-            print(mon)
         
+        hol = 0
 
-        # print(event_counts)
+        for key, value in formatted_event_counts.items():
+            mon = value['month']
+            day1 = value['total_days']
+            print(mon)
+            print(day1)
+            
+
             if r == mon:
-                day=value['total_days']-value['count']
-                hol=value['count']
-                
-        
+                day = value['total_days'] - value['count']
+                hol = value['count']
 
         print(f"Selected month ({r}) days: {day}")
         # context = {
