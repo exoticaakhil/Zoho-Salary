@@ -1943,6 +1943,7 @@ class Attendance_comments(models.Model):
 
 ############################ Akhil A #########################################
 class salary_deatils(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
     employee_name=models.CharField(max_length=255,null=True,blank=True)
     employee_mail=models.EmailField()
     employee_id=models.CharField(max_length=20,null=True,blank=True)
@@ -1961,6 +1962,7 @@ class salary_deatils(models.Model):
     employee_HRA=models.IntegerField(null=True,blank=True)
     employee_otherall=models.IntegerField(null=True,blank=True)
     employee_Bonus=models.IntegerField(null=True,blank=True)
+    employee_othercuttings=models.IntegerField(null=True,blank=True)
     employee_Tsalary=models.IntegerField(null=True,blank=True)
     employee_discription=models.CharField(max_length=255,null=True,blank=True)
     

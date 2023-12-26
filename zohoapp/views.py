@@ -26972,7 +26972,7 @@ def exp_get_employeedet(request):
 ######salary#######
 def allsalary(request):
     user = request.user
-    estimates = Payroll.objects.filter(user=user).order_by('-id')
+    estimates = Payroll.objects.filter(user=user)
     
     
     company = company_details.objects.get(user=user)
@@ -27009,11 +27009,52 @@ def create_salary(request):
 def add_salary_details(request):
     if request.user.is_authenticated:
         if request.method=='POST':
-            c=request.POST['ex_name']
-             
-            
-            
-
+            usr=request.user
+            name=request.POST['ex_name']
+            mail=request.POST['ex_mail']
+            employeeid=request.POST['ex_id']
+            desigination=request.POST['ex_des']
+            salary=request.POST['ex_salary']
+            jdate=request.POST['ex_jdate']
+            sdate=request.POST['ex_sdate']
+            month=request.POST['ex_month']
+            holidays=request.POST['ex_holiday']
+            workingdays=request.POST['ex_workingdays']
+            years=request.POST['ex_year']
+            leave=request.POST['ex_leave']
+            cleaves=request.POST['ex_cleave']
+            bsalary=request.POST['ex_bsalary']
+            callow=request.POST['ex_callow']
+            hra=request.POST['ex_hra']
+            oallow=request.POST['ex_oallow']
+            bonus=request.POST['ex_bonus']
+            ocuttings=request.POST['ex_ocuttings']
+            csalary=request.POST['ex_csalarys']
+            discription=request.POST['ex_discription']
+            saldel=salary_deatils(user=usr,
+                                  employee_name=name,
+                                  employee_mail=mail,
+                                  employee_id=employeeid,
+                                  Desigination=desigination,
+                                  employee_salary=salary,
+                                  employee_joindate=jdate,
+                                  employee_salarydate=sdate,
+                                  employee_month= month,
+                                  employee_holiday=holidays,
+                                  employee_workingday=workingdays,
+                                  employee_year=years,
+                                  employee_leave=leave,
+                                  employee_casual_leave=cleaves,
+                                  employee_basicsalary=bsalary,
+                                  employee_Allowance=callow,
+                                  employee_HRA=hra,
+                                  employee_otherall=oallow,
+                                  employee_Bonus=bonus,
+                                  employee_othercuttings=ocuttings,
+                                  employee_Tsalary=csalary,
+                                  employee_discription=discription,
+                                  )
+            saldel.save()
             return redirect('view_sales_order')     
 @login_required(login_url='login')
 def salary_deatils(request,id):
