@@ -1208,12 +1208,15 @@ urlpatterns = [
     ##salary##
     path('allsalary',views.allsalary,name='allsalary'),
     path('sal_sort_by_name',views.sal_sort_by_name,name='sal_sort_by_name'),
+    path('sal_sort_by_month',views.sal_sort_by_month,name='sal_sort_by_month'),
     path('create_salary',views.create_salary,name='create_salary'),
     path('add_salary_details',views.add_salary_details,name='add_salary_details'),
     path('salary_deatils/<int:id>',views.salary_deatils,name='salary_deatils'),
     path('createpayrollonsalary',views.createpayrollonsalary,name='createpayrollonsalary'),
     path('monthselection',views.monthselection,name='monthselection'),
-    path('edit_salary',views.edit_salary,name='edit_salary'),
+    path('edit_salary/<int:id>',views.edit_salary,name='edit_salary'),
+    path('filter_by_draftsalary',views.filter_by_draftsalary,name='filter_by_draftsalary'),
+    path('filter_by_save_salary',views.filter_by_save_salary,name='filter_by_save_salary'),
 
 
    

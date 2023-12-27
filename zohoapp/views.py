@@ -26973,8 +26973,6 @@ def exp_get_employeedet(request):
 def allsalary(request):
     user = request.user
     estimates = Payroll.objects.filter(user=user)
-    
-    
     company = company_details.objects.get(user=user)
     context = {
         'estimates': estimates,
@@ -26994,6 +26992,22 @@ def sal_sort_by_name(request):
                 'estimates' : sorted_est
             }  
     return render(request,'all_salary.html',context)
+def sal_sort_by_month(request):
+    user = request.user.id
+    payroll_data = Payroll.objects.filter(user=user).values()
+
+    # Assuming you have a 'date' field in your Payroll model
+    for record in payroll_data:
+        date_parts = record['date'].split('-')
+        record['month'] = int(date_parts[1])
+
+    sorted_payroll_data = sorted(payroll_data, key=lambda r: r['month'])
+
+    context = {
+        'payroll_data': sorted_payroll_data
+    }
+
+    return render(request, 'all_salary.html', context)
 
 @login_required(login_url='login')
 def create_salary(request):
@@ -27005,69 +27019,67 @@ def create_salary(request):
         "company":company,
     }
     return render(request,'create_salary.html',context)
-@login_required(login_url='login')
+@login_required
 def add_salary_details(request):
-    if request.user.is_authenticated:
-        if request.method=='POST':
-            usr=request.user
-            name=request.POST['ex_name']
-            mail=request.POST['ex_mail']
-            employeeid=request.POST['ex_id']
-            desigination=request.POST['ex_des']
-            salary=request.POST['ex_salary']
-            jdate=request.POST['ex_jdate']
-            sdate=request.POST['ex_sdate']
-            month=request.POST['ex_month']
-            holidays=request.POST['ex_holiday']
-            workingdays=request.POST['ex_workingdays']
-            years=request.POST['ex_year']
-            leave=request.POST['ex_leave']
-            cleaves=request.POST['ex_cleave']
-            bsalary=request.POST['ex_bsalary']
-            callow=request.POST['ex_callow']
-            hra=request.POST['ex_hra']
-            oallow=request.POST['ex_oallow']
-            bonus=request.POST['ex_bonus']
-            ocuttings=request.POST['ex_ocuttings']
-            csalary=request.POST['ex_csalarys']
-            discription=request.POST['ex_discription']
-            saldel=salary_deatils(user=usr,
-                                  employee_name=name,
-                                  employee_mail=mail,
-                                  employee_id=employeeid,
-                                  Desigination=desigination,
-                                  employee_salary=salary,
-                                  employee_joindate=jdate,
-                                  employee_salarydate=sdate,
-                                  employee_month= month,
-                                  employee_holiday=holidays,
-                                  employee_workingday=workingdays,
-                                  employee_year=years,
-                                  employee_leave=leave,
-                                  employee_casual_leave=cleaves,
-                                  employee_basicsalary=bsalary,
-                                  employee_Allowance=callow,
-                                  employee_HRA=hra,
-                                  employee_otherall=oallow,
-                                  employee_Bonus=bonus,
-                                  employee_othercuttings=ocuttings,
-                                  employee_Tsalary=csalary,
-                                  employee_discription=discription,
-                                  )
+   if request.method == 'POST':
+         # Get form data
+            name = request.POST['ex_name']
+            mail = request.POST['ex_mail']
+            employeeid = request.POST['ex_id']
+            desigination = request.POST['ex_des']
+            salary = request.POST['ex_salary']
+            jdate = request.POST['ex_jdate']
+            sdate = request.POST['ex_sdate']
+            month = request.POST['ex_month']
+            holidays = request.POST['ex_holiday']
+            workingdays = request.POST['ex_workingdays']
+            years = request.POST['ex_year']
+            leave = request.POST['ex_leave']
+            cleaves = request.POST['ex_cleave']
+            bsalary = request.POST['ex_bsalary']
+            callow = request.POST['ex_callow']
+            hra = request.POST['ex_hra']
+            oallow = request.POST['ex_oallow']
+            bonus = request.POST['ex_bonus']
+            ocuttings = request.POST['ex_ocuttings']
+            csalary = request.POST['ex_csalary']
+            discription = request.POST['ex_discription']
+
+            # Create an instance of the model
+            saldel = salary_deatils(
+                employee_name=name,
+                employee_mail=mail,
+                employee_id=employeeid,
+                Desigination=desigination,
+                employee_salary=salary,
+                employee_joindate=jdate,
+                employee_salarydate=sdate,
+                employee_month=month,
+                employee_holiday=holidays,
+                employee_workingday=workingdays,
+                employee_year=years,
+                employee_leave=leave,
+                employee_casual_leave=cleaves,
+                employee_basicsalary=bsalary,
+                employee_Allowance=callow,
+                employee_HRA=hra,
+                employee_otherall=oallow,
+                employee_Bonus=bonus,
+                employee_othercuttings=ocuttings,
+                employee_Tsalary=csalary,
+                employee_discription=discription
+            )
+
+            # Save the instance to the database
             saldel.save()
-            return redirect('view_sales_order')     
+            return redirect('allsalary')
+    # If the request method is not POST, render the form
+    return render(request, 'create_salary.html')  # Update with the actual template name     
 @login_required(login_url='login')
 def salary_deatils(request,id):
     sales=Payroll.objects.get(id=id)
-    # saleitem=sales_item.objects.filter(sale_id=id)
-    # sale_order=SalesOrder.objects.filter(user=request.user.id)
-    company=company_details.objects.get(user_id=request.user.id)
 
-    # bank=''
-    # if sales.pay_method != 'cash':
-    #     if sales.pay_method != 'upi':      'saleitem':saleitem,'sale_order':sale_order,,'bank':bank
-    #         if sales.pay_method != 'cheque':
-    #             bank = Bankcreation.objects.get(name=sales.pay_method)
+    company=company_details.objects.get(user_id=request.user.id)
     
     context={'sale':sales,'company':company}
     
@@ -27194,12 +27206,13 @@ def monthselection(request):
        
         
         hol = 0
+        day=0
 
         for key, value in formatted_event_counts.items():
             mon = value['month']
-            day1 = value['total_days']
+            
             print(mon)
-            print(day1)
+            
             
 
             if r == mon:
@@ -27216,7 +27229,16 @@ def monthselection(request):
 
         # Return the selected_month_days along with other data in the JsonResponse
         return JsonResponse({"day":day,"hol":hol})
-def edit_salary(request):
+def edit_salary(request,id):
     user = request.user
     company = company_details.objects.get(user=user)
     return render(request,'edit_salary.html')
+def filter_by_draftsalary(request):
+    user = request.user
+    estimates=Payroll.objects.filter(status='draft',user=user)
+    return render(request, 'all_salary.html', {'estimates':estimates})
+def filter_by_save_salary(request):
+    user = request.user
+    company=company_details.objects.get(user=user)
+    estimates=Payroll.objects.filter(status='save',user=user)
+    return render(request, 'all_salary.html', {'expenses':estimates})
